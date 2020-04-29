@@ -1,5 +1,6 @@
 package com.mycompany.bibiotecamusicafx;
 
+import com.mycompany.bibiotecamusicafx.controller.PantallaController;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +18,11 @@ public class MainApp extends Application {
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
         
-        stage.setTitle("JavaFX and Maven");
+        stage.setTitle("Orange Music");
+        
+        PantallaController pantallaController = PantallaController.getInstancia(scene);
+        pantallaController.init();
+        pantallaController.activar("inicio");
         stage.setScene(scene);
         stage.show();
     }

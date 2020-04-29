@@ -1,4 +1,4 @@
-package com.mycompany.bibiotecamusicafx;
+package com.mycompany.bibiotecamusicafx.model;
 
 import java.time.LocalDate;
 import java.time.Period;

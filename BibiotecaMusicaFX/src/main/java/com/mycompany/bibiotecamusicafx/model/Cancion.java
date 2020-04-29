@@ -1,4 +1,4 @@
-package com.mycompany.bibiotecamusicafx;
+package com.mycompany.bibiotecamusicafx.model;
 
 public class Cancion {
     private final String nombre;
