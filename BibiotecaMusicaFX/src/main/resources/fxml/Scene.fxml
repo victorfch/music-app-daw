@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="407.0" prefWidth="581.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.bibiotecamusicafx.controller.FXMLController">
+<AnchorPane id="AnchorPane" fx:id="contenedor" prefHeight="407.0" prefWidth="581.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.bibiotecamusicafx.controller.FXMLController">
     <children>
       <MenuBar layoutY="-1.0" prefHeight="29.0" prefWidth="581.0">
         <menus>
@@ -35,17 +35,5 @@
           </Menu>
         </menus>
       </MenuBar>
-      <Label alignment="CENTER" layoutX="14.0" layoutY="38.0" prefHeight="42.0" prefWidth="205.0" text="Bienvenido a Orange Music." textOverrun="CLIP">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Label>
-      <Label layoutX="14.0" layoutY="91.0" text="Con este programa tendrás un control absoluto de tus canciones, albumes o artistas favoritos.">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="14.0" layoutY="115.0" text="No esperes más y empieza a disfrutar de este programa." />
-      <Separator layoutX="10.0" layoutY="82.0" prefHeight="3.0" prefWidth="557.0" />
     </children>
 </AnchorPane>

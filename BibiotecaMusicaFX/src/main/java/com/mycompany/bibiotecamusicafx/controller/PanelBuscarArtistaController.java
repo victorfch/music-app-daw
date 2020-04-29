@@ -5,8 +5,12 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.AnchorPane;
 
 public class PanelBuscarArtistaController implements Initializable {
+
+    @FXML
+    private AnchorPane contenedor;
 
 
     @Override
@@ -14,8 +18,5 @@ public class PanelBuscarArtistaController implements Initializable {
         // TODO
     }    
 
-    @FXML
-    private void irPanelInicial(ActionEvent event) {
-    }
     
 }

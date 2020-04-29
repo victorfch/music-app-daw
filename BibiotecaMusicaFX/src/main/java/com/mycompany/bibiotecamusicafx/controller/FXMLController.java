@@ -7,10 +7,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 
 public class FXMLController implements Initializable {
+
+    @FXML
+    private AnchorPane contenedor;
     
     
     @Override
@@ -19,12 +24,14 @@ public class FXMLController implements Initializable {
 
     @FXML
     private void openFindArtist(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/PanelBuscarArtista.fxml"));
-        Scene escena = new Scene(root);
-        PantallaController pantalla = PantallaController.getInstancia(escena);
-        pantalla.activar("panelBuscarArtista");
-        System.out.println(event);
-        System.out.println("Has pinchado en buscar artista");
+        
+        contenedor.getChildren().add((AnchorPane) FXMLLoader.load(getClass().getResource("/fxml/PanelBuscarArtista.fxml")));
+        //Parent root = FXMLLoader.load(getClass().getResource("/fxml/PanelBuscarArtista.fxml"));
+//        Scene escena = new Scene(root);
+//        PantallaController pantalla = PantallaController.getInstancia(escena);
+//        pantalla.activar("panelBuscarArtista");
+//        System.out.println(event);
+//        System.out.println("Has pinchado en buscar artista");
     }
 
     @FXML
