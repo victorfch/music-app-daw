@@ -2,11 +2,12 @@ package com.mycompany.bibiotecamusicafx.controller;
 
 import com.mycompany.bibiotecamusicafx.utility.DatePickerFecha;
 import com.mycompany.bibiotecamusicafx.model.Artista;
-import com.mycompany.bibiotecamusicafx.utility.Ventanas;
+import com.mycompany.bibiotecamusicafx.servicio.ArtistaServicio;
+import com.mycompany.bibiotecamusicafx.servicio.ArtistaServicioImpl;
+import com.mycompany.bibiotecamusicafx.utility.VentanasYControladores;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +17,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class ArtistaEditController implements Initializable {
+    
+    ArtistaServicio servicioArtistas = ArtistaServicioImpl.getInstancia();
+
 
     @FXML
     private TextField nombre;
@@ -41,7 +45,11 @@ public class ArtistaEditController implements Initializable {
         if (!nombre.isEmpty() && !nacionalidad.isEmpty() && !fechaNacimiento.getValue().toString().isEmpty()) {
             Date fNac = DatePickerFecha.convertirFechaDatePickerADate(fechaNacimiento.getValue());
             Artista artista = new Artista(nombre, nacionalidad, fNac);
-            Ventanas.get("editar-artista").close();
+            servicioArtistas.guardar(artista);
+            ArtistaController controlador = (ArtistaController)VentanasYControladores.getControlador("artista");
+            controlador.actualizarPanelArtistas();
+
+            VentanasYControladores.getVentana("artista-editar").close();
         } else {
             alerta.setText("Por favor, complete todos los campos");
         }
@@ -49,7 +57,7 @@ public class ArtistaEditController implements Initializable {
 
     @FXML
     private void cancelar(ActionEvent event) {
-        Ventanas.get("editar-artista").close();
+        VentanasYControladores.getVentana("artista-editar").close();
     }
 
 }
