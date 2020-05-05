@@ -1,5 +1,6 @@
 package com.mycompany.bibiotecamusicafx;
 
+import com.mycompany.bibiotecamusicafx.utility.Ventanas;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +20,7 @@ public class MainApp extends Application {
         
         stage.setTitle("Orange Music");
         stage.setScene(scene);
+        Ventanas.anhadir("principal", stage);
         stage.show();
     }
 

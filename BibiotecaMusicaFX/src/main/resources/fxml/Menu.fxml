@@ -5,9 +5,9 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="407.0" prefWidth="581.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.mycompany.bibiotecamusicafx.controller.MenuController">
+<AnchorPane id="AnchorPane" prefHeight="525.0" prefWidth="641.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.bibiotecamusicafx.controller.MenuController">
     <children>
-        <MenuBar fx:id="menuBar" layoutY="-1.0" prefHeight="29.0" prefWidth="581.0">
+        <MenuBar fx:id="menuBar" layoutY="-1.0" prefHeight="34.0" prefWidth="664.0">
         <menus>
             <Menu mnemonicParsing="false" text="Opciones">
                <items>
@@ -19,6 +19,6 @@
             </Menu>
         </menus>
       </MenuBar>
-      <AnchorPane fx:id="contenedor" layoutY="28.0" prefHeight="378.0" prefWidth="581.0" />
+      <AnchorPane fx:id="contenedor" layoutY="33.0" prefHeight="498.0" prefWidth="664.0" />
     </children>
 </AnchorPane>

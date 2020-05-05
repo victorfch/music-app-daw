@@ -27,5 +27,12 @@ public class Artista {
         LocalDate hoy = LocalDate.now(); 
         return Period.between(fechaNacimientoLocalDate, hoy).getYears();
     }
+
+    @Override
+    public String toString() {
+        return this.nombre + " - " + this.nacionalidad + " - " + this.fechaNacimiento;
+     }
+    
+    
     
 }
