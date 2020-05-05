@@ -1,27 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" fx:id="contenedor" prefHeight="407.0" prefWidth="581.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.bibiotecamusicafx.controller.InicioController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.bibiotecamusicafx.controller.InicioController">
     <children>
-      <MenuBar fx:id="menuBar" layoutY="-1.0" prefHeight="29.0" prefWidth="581.0">
-        <menus>
-            <Menu mnemonicParsing="false" text="Opciones">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#irVentanaInicio" text="Inicio" />
-                  <MenuItem mnemonicParsing="false" onAction="#irVentanaArtista" text="Artistas" />
-                  <MenuItem mnemonicParsing="false" onAction="#irVentanaAlbum" text="Albumes" />
-                  <MenuItem mnemonicParsing="false" onAction="#irVentanaCancion" text="Canciones" />
-               </items>
-            </Menu>
-        </menus>
-      </MenuBar>
       <Label alignment="CENTER" layoutX="14.0" layoutY="38.0" prefHeight="42.0" prefWidth="205.0" text="Bienvenido a Orange Music." textOverrun="CLIP">
          <font>
             <Font size="17.0" />
