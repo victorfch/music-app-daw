@@ -43,7 +43,7 @@ public class ArtistaEditController implements Initializable {
     private void guardar(ActionEvent event) throws ParseException {
         String nombre = this.nombre.getText().trim();
         String nacionalidad = this.nacionalidad.getText().trim();
-        if (!nombre.isEmpty() && !nacionalidad.isEmpty() && !fechaNacimiento.getValue().toString().isEmpty()) {
+        if (!nombre.isEmpty() && !nacionalidad.isEmpty() && !(fechaNacimiento.getValue() == null)) {
             Date fNac = DatePickerFecha.convertirFechaDatePickerADate(fechaNacimiento.getValue());
             Artista artista = new Artista(nombre, nacionalidad, fNac);
             servicioArtistas.guardar(artista);
