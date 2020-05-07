@@ -4,8 +4,8 @@ import com.mycompany.bibiotecamusicafx.model.Artista;
 import java.util.ArrayList;
 
 
-public class ArtistaServicioImpl implements ArtistaServicio {
-    private static ArtistaServicioImpl instancia;
+public class ArtistaServicioArray implements ArtistaServicio {
+    private static ArtistaServicioArray instancia;
     private ArrayList<Artista> artistas = new ArrayList<Artista>();  //temporal hasta tener MySQL
     
 
@@ -38,9 +38,9 @@ public class ArtistaServicioImpl implements ArtistaServicio {
     public int contarArtistas() {
         return artistas.size();
     }
-    public static ArtistaServicioImpl getInstancia() {
+    public static ArtistaServicioArray getInstancia() {
         if (instancia == null) {
-            instancia = new ArtistaServicioImpl();
+            instancia = new ArtistaServicioArray();
         }
         return instancia;
     }

@@ -6,17 +6,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-/**
- *
- * @author victor
- */
 public abstract class DatePickerFecha {
     public static Date convertirFechaDatePickerADate(LocalDate fecha) throws ParseException {
-        String patron = "dd/MM/yyyy";
-        String fechaNueva = fecha.format(DateTimeFormatter.ofPattern(patron));
-        SimpleDateFormat formateadorFechas = new SimpleDateFormat(patron);
-        Date fechaNacimiento = formateadorFechas.parse(fechaNueva);
-        return fechaNacimiento;
+        String fechaNueva = fecha.format(DateTimeFormatter.ofPattern(Constantes.PATRON_FECHA));
+        SimpleDateFormat formateadorFechas = new SimpleDateFormat(Constantes.PATRON_FECHA);
+        return formateadorFechas.parse(fechaNueva);
     }
     
     

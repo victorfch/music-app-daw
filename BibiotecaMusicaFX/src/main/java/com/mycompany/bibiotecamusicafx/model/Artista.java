@@ -1,5 +1,6 @@
 package com.mycompany.bibiotecamusicafx.model;
 
+import com.mycompany.bibiotecamusicafx.utility.Constantes;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
@@ -30,7 +31,7 @@ public class Artista {
 
     @Override
     public String toString() {
-        return this.nombre + "-" + this.nacionalidad + "-" + getEdad();
+        return this.nombre + Constantes.GUION + this.nacionalidad + Constantes.GUION + getEdad();
      }
     
     

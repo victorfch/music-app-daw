@@ -3,7 +3,8 @@ package com.mycompany.bibiotecamusicafx.controller;
 import com.mycompany.bibiotecamusicafx.utility.DatePickerFecha;
 import com.mycompany.bibiotecamusicafx.model.Artista;
 import com.mycompany.bibiotecamusicafx.servicio.ArtistaServicio;
-import com.mycompany.bibiotecamusicafx.servicio.ArtistaServicioImpl;
+import com.mycompany.bibiotecamusicafx.servicio.ArtistaServicioArray;
+import com.mycompany.bibiotecamusicafx.utility.Constantes;
 import com.mycompany.bibiotecamusicafx.utility.VentanasYControladores;
 import java.net.URL;
 import java.text.ParseException;
@@ -18,7 +19,7 @@ import javafx.scene.control.TextField;
 
 public class ArtistaEditController implements Initializable {
     
-    ArtistaServicio servicioArtistas = ArtistaServicioImpl.getInstancia();
+    ArtistaServicio servicioArtistas = ArtistaServicioArray.getInstancia();
 
 
     @FXML
@@ -50,7 +51,7 @@ public class ArtistaEditController implements Initializable {
             controlador.actualizarPanelArtistas();
             VentanasYControladores.getVentana("artista-editar").close();
         } else {
-            alerta.setText("Por favor, complete todos los campos");
+            alerta.setText(Constantes.MSG_COMPLETAR_CAMPOS);
         }
     }
 

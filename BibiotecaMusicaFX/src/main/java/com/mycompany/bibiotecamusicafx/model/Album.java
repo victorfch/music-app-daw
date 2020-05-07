@@ -1,6 +1,5 @@
 package com.mycompany.bibiotecamusicafx.model;
 
-import com.mycompany.bibiotecamusicafx.model.Cancion;
 import java.util.ArrayList;
 import java.util.Date;
 
