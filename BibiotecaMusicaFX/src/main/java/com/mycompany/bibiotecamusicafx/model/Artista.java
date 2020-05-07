@@ -30,7 +30,7 @@ public class Artista {
 
     @Override
     public String toString() {
-        return this.nombre + " - " + this.nacionalidad + " - " + this.fechaNacimiento;
+        return this.nombre + "-" + this.nacionalidad + "-" + getEdad();
      }
     
     

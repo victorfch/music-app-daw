@@ -46,9 +46,8 @@ public class ArtistaEditController implements Initializable {
             Date fNac = DatePickerFecha.convertirFechaDatePickerADate(fechaNacimiento.getValue());
             Artista artista = new Artista(nombre, nacionalidad, fNac);
             servicioArtistas.guardar(artista);
-            ArtistaController controlador = (ArtistaController)VentanasYControladores.getControlador("artista");
+            ArtistaController controlador = (ArtistaController) VentanasYControladores.getControlador("artista");
             controlador.actualizarPanelArtistas();
-
             VentanasYControladores.getVentana("artista-editar").close();
         } else {
             alerta.setText("Por favor, complete todos los campos");
