@@ -13,6 +13,6 @@ public class Constantes {
     public static final String ETIQUETA_NACIONALIDAD = "Nacionalidad";
     public static final String ETIQUETA_EDAD = "Años";
     public static final String MSG_NO_HAY_ARTISTAS = "No hay artistas añadidos";
-    public static final String PATRON_FECHA = "dd/mm/yyyy";
+    public static final String PATRON_FECHA = "dd/MM/yyyy";
     public static final String MSG_COMPLETAR_CAMPOS = "Por favor, complete todos los campos";
 }
