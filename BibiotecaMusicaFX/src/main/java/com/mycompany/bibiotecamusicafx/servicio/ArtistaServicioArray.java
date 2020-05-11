@@ -20,8 +20,14 @@ public class ArtistaServicioArray implements ArtistaServicio {
     }
 
     @Override
-    public void editar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void editar(Artista artista) {
+        boolean terminado = false;
+        for (int i = 0; i < artistas.size(); i++) {
+            if (artistas.get(i).getId().equals(artista.getId())) {
+                terminado = true;
+                artistas.set(i, artista);
+            }
+        }
     }
 
     @Override
@@ -30,19 +36,28 @@ public class ArtistaServicioArray implements ArtistaServicio {
     }
 
     @Override
-    public void encontrar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public int contarArtistas() {
         return artistas.size();
     }
+
     public static ArtistaServicioArray getInstancia() {
         if (instancia == null) {
             instancia = new ArtistaServicioArray();
         }
         return instancia;
+    }
+
+    @Override
+    public Artista getArtista(String id) {
+        Artista artista = null;
+        boolean encontrado = false;
+        for (int i = 0; i < artistas.size() && !encontrado; i++) {
+            if (artistas.get(i).getId().equals(id)) {
+                encontrado = true;
+                artista = artistas.get(i);
+            }
+        }
+        return artista;
     }
     
 }

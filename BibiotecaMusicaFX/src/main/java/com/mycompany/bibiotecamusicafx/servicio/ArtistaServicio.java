@@ -10,8 +10,8 @@ import java.util.ArrayList;
 public interface ArtistaServicio {
     public abstract void guardar(Artista artista);
     public abstract void eliminar();
-    public abstract void editar(); 
+    public abstract void editar(Artista artista); 
+    public abstract Artista getArtista(String id);
     public abstract ArrayList<Artista> obtenerTodos();
-    public abstract void encontrar();
     public abstract int contarArtistas();
 }

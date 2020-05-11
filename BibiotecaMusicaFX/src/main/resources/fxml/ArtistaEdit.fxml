@@ -34,5 +34,6 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <TextField fx:id="id" editable="false" layoutX="179.0" layoutY="32.0" opacity="0.0" prefHeight="27.0" prefWidth="161.0" />
    </children>
 </AnchorPane>

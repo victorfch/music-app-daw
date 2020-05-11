@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,19 +25,17 @@ import javafx.scene.paint.Paint;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-
 public class ArtistaController implements Initializable {
 
     ArtistaServicio servicioArtistas = ArtistaServicioArray.getInstancia();
-    
+
     @FXML
     private TextField nombre;
     @FXML
     private TextField edad;
     @FXML
     private ScrollPane contenedorArtistas;
-    
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         VentanasYControladores.anhadirControlador("artista", this);
@@ -56,7 +55,7 @@ public class ArtistaController implements Initializable {
         ventana.initModality(Modality.WINDOW_MODAL);
         ventana.showAndWait();
     }
-    
+
     public void actualizarPanelArtistas() {
         contenedorArtistas.setContent(null);
         if (servicioArtistas.contarArtistas() == 0) {
@@ -78,12 +77,21 @@ public class ArtistaController implements Initializable {
             cuadricula.add(etiquetaNacionalidad, 1, 0);
             cuadricula.add(etiquetaEdad, 2, 0);
             cuadricula.add(etiquetaAcciones, 3, 0);
-            for (Artista artista : servicioArtistas.obtenerTodos()) {
-                String[] artistaInfo = artista.toString().split(Constantes.GUION);
-                Label nombre = new Label(artistaInfo[0]);
-                Label nacionalidad = new Label(artistaInfo[1]);
-                Label edad = new Label(artistaInfo[2]);
-                Button boton = new Button("Ver");
+            for (final Artista artista : servicioArtistas.obtenerTodos()) {
+                Label nombre = new Label(artista.getNombre());
+                Label nacionalidad = new Label(artista.getNacionalidad());
+                Label edad = new Label(String.valueOf(artista.getEdad()));
+                Button boton = new Button("Editar");
+                boton.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        ArtistaEditController editarControlador;
+                        editarControlador = (ArtistaEditController) VentanasYControladores.getControlador("artista-editar");
+                        editarControlador.iniciarDatos(artista);
+                        Stage ventana = VentanasYControladores.getVentana("artista-editar");
+                        ventana.showAndWait();
+                    }
+                });
                 cuadricula.add(nombre, 0, contador);
                 cuadricula.add(nacionalidad, 1, contador);
                 cuadricula.add(edad, 2, contador);
