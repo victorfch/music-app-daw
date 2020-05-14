@@ -6,7 +6,6 @@ import java.time.Period;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Objects;
 import java.util.UUID;
 
 public class Artista {
@@ -27,7 +26,7 @@ public class Artista {
     public String getId() {
         return id;
     }
-    
+
     public String getNombre() {
         return nombre;
     }
@@ -43,10 +42,10 @@ public class Artista {
     public void setNacionalidad(String nacionalidad) {
         this.nacionalidad = nacionalidad;
     }
-    
+
     public int getEdad() {
         LocalDate fechaNacimientoLocalDate = fechaNacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate hoy = LocalDate.now(); 
+        LocalDate hoy = LocalDate.now();
         return Period.between(fechaNacimientoLocalDate, hoy).getYears();
     }
 
@@ -65,8 +64,9 @@ public class Artista {
     @Override
     public String toString() {
         return this.nombre + Constantes.GUION + this.nacionalidad + Constantes.GUION + getEdad();
-     }
-    
-    
-    
+    }
+
+    public String toStringConID() {
+        return this.id + " ; " + this.nombre + " ; " + this.nacionalidad + " ; " + getEdad();
+    }
 }
