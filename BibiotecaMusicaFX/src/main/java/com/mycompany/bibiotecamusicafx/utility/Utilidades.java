@@ -4,28 +4,22 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class Utilidades {
+    public static Scanner sc = new Scanner(System.in);
 
     public static Map<Integer, String> getMenu() {
         HashMap<Integer, String> opciones = new HashMap();
         opciones.put(1, "Añadir artista");
-        opciones.put(2, "Editar artista");
-        opciones.put(3, "Mostrar artistas");
-        opciones.put(4, "Buscar artista");
-        opciones.put(5, "Eliminar artista");
-        opciones.put(6, "Añadir album");
-        opciones.put(7, "Editar album");
-        opciones.put(8, "Mostrar albumes");
-        opciones.put(9, "Buscar album");
-        opciones.put(10, "Eliminar album");
-        opciones.put(11, "Añadir cancion");
-        opciones.put(11, "Buscar cancion");
-        opciones.put(12, "Editar cancion");
-        opciones.put(13, "Mostrar canciones");
-        opciones.put(15, "Eliminar cancion");
-        opciones.put(16, "Salir");
+        opciones.put(2, "Mostrar artistas");
+        opciones.put(3, "Ver info completa de artista");
+        opciones.put(4, "Eliminar artista");
+        opciones.put(5, "Añadir album");
+        opciones.put(6, "Mostrar albumes de un artista");
+        opciones.put(7, "Eliminar album");
+        opciones.put(8, "Salir");
         return opciones;
     }
 
@@ -38,7 +32,7 @@ public class Utilidades {
             opciones += opcion.getKey() + ". " + opcion.getValue() + System.lineSeparator();
         }
         opciones += "__________________________" + System.lineSeparator()
-                + "Elige una opcion: " + System.lineSeparator();
+                + "Elige una opcion";
 
         return opciones;
     }
@@ -54,8 +48,18 @@ public class Utilidades {
     }
 
     public static LocalDate conversorStringToLocalDate(String fecha) {
-        DateTimeFormatter formateador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formateador = DateTimeFormatter.ofPattern(Constantes.PATRON_FECHA);
         return LocalDate.parse(fecha, formateador);
     }
+    
+    public static String pedirCadena(String cadena) {
+        mostrarCadena(cadena.concat(Constantes.DOS_PUNTOS_ESPACIO));
+        return sc.nextLine();
+    }
+    
+    public static void mostrarCadena(String cadena) {
+        System.out.println(cadena);
+    }
+    
 
 }

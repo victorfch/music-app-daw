@@ -1,11 +1,12 @@
 package com.mycompany.bibiotecamusicafx.servicio;
 
 import com.mycompany.bibiotecamusicafx.model.Artista;
+import com.mycompany.bibiotecamusicafx.utility.Constantes;
 
 public class ArtistaServicioImplCLI implements ArtistaServicioCLI {
 
     private static ArtistaServicioImplCLI instancia;
-    private Artista[] artistas = new Artista[20];
+    private Artista[] artistas = new Artista[Constantes.TAMANHO_MAX];
     private static int tamReal = 0;
 
     @Override
@@ -14,21 +15,30 @@ public class ArtistaServicioImplCLI implements ArtistaServicioCLI {
     }
 
     @Override
-    public void eliminar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean eliminar(String nombre) {
+        boolean encontrado = false;
+        for (int i = 0; i < tamReal; i++) {
+            if ((artistas[i].getNombre().equals(nombre)) && (tamReal - i > 1)) {
+                artistas[i] = artistas[i+1];
+                encontrado = true;
+            } else if (artistas[i].getNombre().equals(nombre) && (tamReal - i == 1)) {
+                encontrado = true;
+            } else if (encontrado){
+                artistas[i] = artistas[i+1];       
+            }
+        }
+        if (encontrado) {
+            tamReal--;
+        }
+        return encontrado;
     }
 
     @Override
-    public void editar(Artista artista) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Artista getArtista(String id) {
+    public Artista getArtistaPorNombre(String nombre) {
         boolean encontrado = false;
         Artista artista = null;
         for (int i = 0; i < tamReal && !encontrado; i++) {
-            if (artistas[i].getId().equals(id)) {
+            if (artistas[i].getNombre().equals(nombre)) {
                 encontrado = true;
                 artista = artistas[i];
             }
@@ -43,7 +53,7 @@ public class ArtistaServicioImplCLI implements ArtistaServicioCLI {
 
     @Override
     public int contarArtistas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return tamReal;
     }
     
     public static int getTamReal() {

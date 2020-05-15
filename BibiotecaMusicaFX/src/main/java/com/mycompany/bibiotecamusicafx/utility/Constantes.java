@@ -11,10 +11,15 @@ public class Constantes {
     public static final String COLOR_ROJO = "#f53434";
     public static final String ETIQUETA_NOMBRE = "Nombre";
     public static final String ETIQUETA_NACIONALIDAD = "Nacionalidad";
-    public static final String DOS_PUNTOS_ESPACIO = ": ";
     public static final String ETIQUETA_FECHA_NACIMIENTO = "Fecha nacimiento(dd/mm/yyyy): ";
     public static final String ETIQUETA_EDAD = "Años";
-    public static final String MSG_NO_HAY_ARTISTAS = "No hay artistas añadidos";
+    public static final String DOS_PUNTOS_ESPACIO = ": ";
     public static final String PATRON_FECHA = "dd/MM/yyyy";
+    public static final String MSG_NO_HAY_ARTISTAS = "No hay artistas añadidos";
     public static final String MSG_COMPLETAR_CAMPOS = "Por favor, complete todos los campos";
+    public static final String MSG_ARTISTA_NO_ENCONTRADO = "Artista no encontrado";
+    public static final String MSG_SALIR = "Saliendo";
+    public static final String MSG_ERROR = "Error";
+    public static final String MSG_ARTISTA_ELIMINADO = "Artista eliminado con exito";
+    public static final int TAMANHO_MAX = 20;
 }

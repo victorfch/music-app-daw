@@ -9,12 +9,14 @@ import java.util.Date;
 import java.util.UUID;
 
 public class Artista {
+
     private static ZoneId defaultZoneId = ZoneId.systemDefault();
     private String id;
     private String nombre;
     private String nacionalidad;
     private Date fechaNacimiento;
-    private ArrayList<Album> albums = new ArrayList();
+    private int tamRealAlbums = 0;
+    private Album[] albums = new Album[Constantes.TAMANHO_MAX];
 
     public Artista(String nombre, String nacionalidad, LocalDate fechaNacimiento) {
         this.id = UUID.randomUUID().toString();
@@ -58,7 +60,7 @@ public class Artista {
     }
 
     public void anhadirAlbum(Album album) {
-        albums.add(album);
+        albums[tamRealAlbums++] = album;
     }
 
     @Override
@@ -66,7 +68,20 @@ public class Artista {
         return this.nombre + Constantes.GUION + this.nacionalidad + Constantes.GUION + getEdad();
     }
 
-    public String toStringConID() {
-        return this.id + " ; " + this.nombre + " ; " + this.nacionalidad + " ; " + getEdad();
+    public String infoCompleta() {
+        String info = "ID: " + this.id + System.lineSeparator()
+                + Constantes.ETIQUETA_NOMBRE + Constantes.DOS_PUNTOS_ESPACIO
+                + this.nombre + System.lineSeparator()
+                + Constantes.ETIQUETA_NACIONALIDAD + Constantes.DOS_PUNTOS_ESPACIO
+                + this.nacionalidad + System.lineSeparator()
+                + "Fecha nacimiento(yyyy/mm/dd)" + Constantes.DOS_PUNTOS_ESPACIO
+                + this.fechaNacimiento.toString() + System.lineSeparator()
+                + Constantes.ETIQUETA_EDAD + Constantes.DOS_PUNTOS_ESPACIO 
+                + getEdad() + System.lineSeparator()
+                + "Albumes: " + System.lineSeparator();
+        if (tamRealAlbums == 0) {
+            info += "No tiene ningun album relacionado" + System.lineSeparator();
+        }
+        return info;
     }
 }
