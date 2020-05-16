@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
-public class Artista {
+public class Artista implements Comparable<Artista> {
 
     private static ZoneId defaultZoneId = ZoneId.systemDefault();
     private String id;
@@ -59,6 +59,10 @@ public class Artista {
         this.fechaNacimiento = Date.from(fechaNacimiento.atStartOfDay(defaultZoneId).toInstant());
     }
 
+    public int getTamRealAlbums() {
+        return tamRealAlbums;
+    }
+
     public void anhadirAlbum(Album album) {
         albums[tamRealAlbums++] = album;
     }
@@ -68,20 +72,8 @@ public class Artista {
         return this.nombre + Constantes.GUION + this.nacionalidad + Constantes.GUION + getEdad();
     }
 
-    public String infoCompleta() {
-        String info = "ID: " + this.id + System.lineSeparator()
-                + Constantes.ETIQUETA_NOMBRE + Constantes.DOS_PUNTOS_ESPACIO
-                + this.nombre + System.lineSeparator()
-                + Constantes.ETIQUETA_NACIONALIDAD + Constantes.DOS_PUNTOS_ESPACIO
-                + this.nacionalidad + System.lineSeparator()
-                + "Fecha nacimiento(yyyy/mm/dd)" + Constantes.DOS_PUNTOS_ESPACIO
-                + this.fechaNacimiento.toString() + System.lineSeparator()
-                + Constantes.ETIQUETA_EDAD + Constantes.DOS_PUNTOS_ESPACIO 
-                + getEdad() + System.lineSeparator()
-                + "Albumes: " + System.lineSeparator();
-        if (tamRealAlbums == 0) {
-            info += "No tiene ningun album relacionado" + System.lineSeparator();
-        }
-        return info;
+    @Override
+    public int compareTo(Artista o) {
+        return this.nombre.compareTo(o.getNombre());
     }
 }

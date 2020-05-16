@@ -11,15 +11,16 @@ public class Utilidades {
     public static Scanner sc = new Scanner(System.in);
 
     public static Map<Integer, String> getMenu() {
-        HashMap<Integer, String> opciones = new HashMap();
+        Map<Integer, String> opciones = new HashMap();
         opciones.put(1, "Añadir artista");
-        opciones.put(2, "Mostrar artistas");
-        opciones.put(3, "Ver info completa de artista");
-        opciones.put(4, "Eliminar artista");
-        opciones.put(5, "Añadir album");
-        opciones.put(6, "Mostrar albumes de un artista");
-        opciones.put(7, "Eliminar album");
-        opciones.put(8, "Salir");
+        opciones.put(2, "Mostrar artistas ordenados por nombre");
+        opciones.put(3, "Mostrar artistas ordenados por edad");
+        opciones.put(4, "Ver info completa de artista");
+        opciones.put(5, "Eliminar artista");
+        opciones.put(6, "Añadir album");
+        opciones.put(7, "Mostrar albumes de un artista");
+        opciones.put(8, "Eliminar album");
+        opciones.put(9, "Salir");
         return opciones;
     }
 
