@@ -4,13 +4,12 @@ import com.mycompany.bibiotecamusicafx.utility.Constantes;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
 public class Artista implements Comparable<Artista> {
 
-    private static ZoneId defaultZoneId = ZoneId.systemDefault();
+    private static ZoneId zonaPorDefecto = ZoneId.systemDefault();
     private String id;
     private String nombre;
     private String nacionalidad;
@@ -22,7 +21,7 @@ public class Artista implements Comparable<Artista> {
         this.id = UUID.randomUUID().toString();
         this.nombre = nombre;
         this.nacionalidad = nacionalidad;
-        this.fechaNacimiento = Date.from(fechaNacimiento.atStartOfDay(defaultZoneId).toInstant());
+        this.fechaNacimiento = Date.from(fechaNacimiento.atStartOfDay(zonaPorDefecto).toInstant());
     }
 
     public String getId() {
@@ -46,21 +45,32 @@ public class Artista implements Comparable<Artista> {
     }
 
     public int getEdad() {
-        LocalDate fechaNacimientoLocalDate = fechaNacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate fechaNacimientoLocalDate = fechaNacimiento.toInstant().atZone(zonaPorDefecto).toLocalDate();
         LocalDate hoy = LocalDate.now();
         return Period.between(fechaNacimientoLocalDate, hoy).getYears();
     }
 
     public LocalDate getFechaNacimiento() {
-        return fechaNacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return fechaNacimiento.toInstant().atZone(zonaPorDefecto).toLocalDate();
     }
 
     public void setFechaNacimiento(LocalDate fechaNacimiento) {
-        this.fechaNacimiento = Date.from(fechaNacimiento.atStartOfDay(defaultZoneId).toInstant());
+        this.fechaNacimiento = Date.from(fechaNacimiento.atStartOfDay(zonaPorDefecto).toInstant());
+    }
+    
+    public String getAlbumesString() {
+        String albumes = "No tiene ningun album relacionado";
+        if (tamRealAlbums > 0) {
+            albumes = "Titulo  Genero Fecha de lanzamiento Canciones: ";
+            for (int i = 0; i < tamRealAlbums; i++) {
+                albumes += albums[i].toString() + System.lineSeparator();
+            }
+        }
+        return albumes;
     }
 
-    public int getTamRealAlbums() {
-        return tamRealAlbums;
+    public boolean sePuedenAnhadirMasAlbumes() {
+        return tamRealAlbums < Constantes.TAMANHO_MAX;
     }
 
     public void anhadirAlbum(Album album) {

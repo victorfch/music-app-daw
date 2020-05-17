@@ -1,6 +1,6 @@
 package com.mycompany.bibiotecamusicafx.model;
 
-import com.mycompany.bibiotecamusicafx.controller.comparadores.OrdenarArtistaPorEdad;
+import com.mycompany.bibiotecamusicafx.comparador.ComparadorArtistaPorEdad;
 import com.mycompany.bibiotecamusicafx.utility.Constantes;
 import java.util.Arrays;
 
@@ -14,7 +14,7 @@ public class Conjunto {
     }
 
     public boolean sePuedeGuardar() {
-        return tamReal != Constantes.TAMANHO_MAX;
+        return tamReal < Constantes.TAMANHO_MAX;
     }
 
     public boolean eliminar(String nombre) {
@@ -53,8 +53,8 @@ public class Conjunto {
             if (opcion == Constantes.ORDENAR_POR_NOMBRE) {
                 Arrays.sort(this.artistas, 0, tamReal);
             } else {
-                OrdenarArtistaPorEdad ordenacion = new OrdenarArtistaPorEdad();
-                Arrays.sort(this.artistas, 0, tamReal, ordenacion);
+                ComparadorArtistaPorEdad comparadorEdad = new ComparadorArtistaPorEdad();
+                Arrays.sort(this.artistas, 0, tamReal, comparadorEdad);
             }
             artistas = Constantes.ETIQUETA_NOMBRE.concat(" ")
                     .concat(Constantes.ETIQUETA_NACIONALIDAD.concat(" "))

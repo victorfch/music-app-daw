@@ -18,9 +18,8 @@ public class Utilidades {
         opciones.put(4, "Ver info completa de artista");
         opciones.put(5, "Eliminar artista");
         opciones.put(6, "Añadir album");
-        opciones.put(7, "Mostrar albumes de un artista");
-        opciones.put(8, "Eliminar album");
-        opciones.put(9, "Salir");
+        opciones.put(7, "Eliminar album");
+        opciones.put(8, "Salir");
         return opciones;
     }
 
@@ -61,6 +60,4 @@ public class Utilidades {
     public static void mostrarCadena(String cadena) {
         System.out.println(cadena);
     }
-    
-
 }

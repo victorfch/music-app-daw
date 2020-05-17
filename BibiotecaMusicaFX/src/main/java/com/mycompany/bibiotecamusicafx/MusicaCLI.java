@@ -1,5 +1,6 @@
 package com.mycompany.bibiotecamusicafx;
 
+import com.mycompany.bibiotecamusicafx.model.Album;
 import com.mycompany.bibiotecamusicafx.model.Artista;
 import com.mycompany.bibiotecamusicafx.model.Conjunto;
 import com.mycompany.bibiotecamusicafx.utility.Constantes;
@@ -17,7 +18,6 @@ public class MusicaCLI {
     mas engorroso para ti buscar por un UUID que por un nombre, por eso para esta version pensemos que
     el campo nombre es unico
      */
-
     public static Conjunto conjunto = new Conjunto();
 
     public static void main(String[] args) {
@@ -40,7 +40,10 @@ public class MusicaCLI {
                 case 5:
                     eliminarArtista();
                     break;
-                case 9:
+                case 6:
+                    anhadirAlbum();
+                    break;
+                case 8:
                     seguir = false;
                     Utilidades.mostrarCadena(Constantes.MSG_SALIR);
                     break;
@@ -78,18 +81,16 @@ public class MusicaCLI {
             Utilidades.mostrarCadena(Constantes.MSG_ARTISTA_NO_ENCONTRADO);
         } else {
             Utilidades.mostrarCadena("ID: " + artista.getId());
-            Utilidades.mostrarCadena(Constantes.ETIQUETA_NOMBRE 
+            Utilidades.mostrarCadena(Constantes.ETIQUETA_NOMBRE
                     + Constantes.DOS_PUNTOS_ESPACIO + artista.getNombre());
-            Utilidades.mostrarCadena(Constantes.ETIQUETA_NACIONALIDAD 
+            Utilidades.mostrarCadena(Constantes.ETIQUETA_NACIONALIDAD
                     + Constantes.DOS_PUNTOS_ESPACIO + artista.getNacionalidad());
-            Utilidades.mostrarCadena("Fecha nacimiento(yyyy/mm/dd): " 
+            Utilidades.mostrarCadena("Fecha nacimiento(yyyy/mm/dd): "
                     + artista.getFechaNacimiento().toString());
             Utilidades.mostrarCadena(Constantes.ETIQUETA_EDAD + Constantes.DOS_PUNTOS_ESPACIO
                     + artista.getEdad());
             Utilidades.mostrarCadena("Albumes: ");
-            if (artista.getTamRealAlbums() == 0) {
-                Utilidades.mostrarCadena("No tiene ningun album relacionado");
-            }
+            Utilidades.mostrarCadena(artista.getAlbumesString());
         }
     }
 
@@ -100,5 +101,33 @@ public class MusicaCLI {
             mensaje = Constantes.MSG_ARTISTA_ELIMINADO;
         }
         Utilidades.mostrarCadena(mensaje);
+    }
+
+    private static void anhadirAlbum() {
+        boolean esFechaNacimientoValida = false;
+        String nombreArtista = Utilidades.pedirCadena("Nombre del artista al que pertenece").trim();
+        String msg = Constantes.MSG_ARTISTA_NO_ENCONTRADO;
+        Artista artista = conjunto.getArtistaPorNombre(nombreArtista);
+        if (artista != null) {
+            if (artista.sePuedenAnhadirMasAlbumes()) {
+                String titulo = Utilidades.pedirCadena("Titulo").trim();
+                String genero = Utilidades.pedirCadena("Genero").trim();
+                LocalDate fechaLanzamiento = null;
+                while (!esFechaNacimientoValida) {
+                    String fecha = Utilidades.pedirCadena("Fecha de lanzamiento(dd/mm/yyyy)").trim();
+                    if (Utilidades.esFechaValida(fecha)) {
+                        esFechaNacimientoValida = true;
+                        fechaLanzamiento = Utilidades.conversorStringToLocalDate(fecha);
+                    }
+                }
+                int numCanciones = Integer.parseInt(Utilidades.pedirCadena("Numero de canciones").trim());
+                Album album = new Album(titulo, genero, fechaLanzamiento, numCanciones);
+                artista.anhadirAlbum(album);
+                msg = "Album añadido correctamente";
+            } else {
+                msg = "No se pueden añadir mas albumes a ese artista";
+            }
+        }
+        Utilidades.mostrarCadena(msg);
     }
 }
