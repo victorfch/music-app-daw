@@ -61,7 +61,7 @@ public class Artista implements Comparable<Artista> {
     public String getAlbumesString() {
         String albumes = "No tiene ningun album relacionado";
         if (tamRealAlbums > 0) {
-            albumes = "Titulo  Genero Fecha de lanzamiento Canciones: ";
+            albumes = "Titulo  Genero Fecha de lanzamiento Canciones: " + System.lineSeparator();
             for (int i = 0; i < tamRealAlbums; i++) {
                 albumes += albums[i].toString() + System.lineSeparator();
             }
@@ -75,6 +75,28 @@ public class Artista implements Comparable<Artista> {
 
     public void anhadirAlbum(Album album) {
         albums[tamRealAlbums++] = album;
+    }
+    
+    public boolean eliminarAlbum(String titulo) {
+        boolean encontrado = false;
+        for (int i = 0; i < tamRealAlbums; i++) {
+            if ((albums[i].getTitulo().equals(titulo)) && (tamRealAlbums - i > 1)) {
+                albums[i] = albums[i + 1];
+                encontrado = true;
+            } else if (albums[i].getTitulo().equals(titulo) && (tamRealAlbums - i == 1)) {
+                encontrado = true;
+            } else if (encontrado && (tamRealAlbums - i > 1)) {
+                albums[i] = albums[i + 1];
+            }
+        }
+        if (encontrado) {
+            tamRealAlbums--;
+        }
+        return encontrado;
+    }
+    
+    public void importarAlbums() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override

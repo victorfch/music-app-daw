@@ -43,7 +43,13 @@ public class MusicaCLI {
                 case 6:
                     anhadirAlbum();
                     break;
+                case 7:
+                    eliminarAlbum();
+                    break;
                 case 8:
+                    importarAlbumsPorFichero();
+                    break;
+                case 9:
                     seguir = false;
                     Utilidades.mostrarCadena(Constantes.MSG_SALIR);
                     break;
@@ -105,7 +111,7 @@ public class MusicaCLI {
 
     private static void anhadirAlbum() {
         boolean esFechaNacimientoValida = false;
-        String nombreArtista = Utilidades.pedirCadena("Nombre del artista al que pertenece").trim();
+        String nombreArtista = Utilidades.pedirCadena("Nombre del artista").trim();
         String msg = Constantes.MSG_ARTISTA_NO_ENCONTRADO;
         Artista artista = conjunto.getArtistaPorNombre(nombreArtista);
         if (artista != null) {
@@ -129,5 +135,28 @@ public class MusicaCLI {
             }
         }
         Utilidades.mostrarCadena(msg);
+    }
+
+    private static void eliminarAlbum() {
+        String nombre = Utilidades.pedirCadena("Nombre del artista").trim();
+        String mensaje = Constantes.MSG_ARTISTA_NO_ENCONTRADO;
+        Artista artista = conjunto.getArtistaPorNombre(nombre);
+        if (artista != null) {
+            String titulo = Utilidades.pedirCadena("Titulo del album");
+            mensaje = "Album no encontrado";
+            if (artista.eliminarAlbum(titulo)) {
+                mensaje = "Album eliminado con exito";
+            }
+        }
+        Utilidades.mostrarCadena(mensaje);
+    }
+
+    private static void importarAlbumsPorFichero() {
+        String nombre = Utilidades.pedirCadena("Nombre del artista").trim();
+        String mensaje = Constantes.MSG_ARTISTA_NO_ENCONTRADO;
+        Artista artista = conjunto.getArtistaPorNombre(nombre);
+        if (artista != null) {
+            artista.importarAlbums();  
+        }
     }
 }

@@ -1,6 +1,5 @@
 package com.mycompany.bibiotecamusicafx.model;
 
-import com.mycompany.bibiotecamusicafx.utility.Constantes;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -37,7 +36,7 @@ public class Album {
 
     @Override
     public String toString() {
-        return titulo + Constantes.GUION + genero + Constantes.GUION 
-                + this.getFechaLanzamiento().toString() + Constantes.GUION + numCanciones;
+        return titulo + ";" + genero + ";" 
+                + this.getFechaLanzamiento().toString() + ";" + numCanciones;
     }
 }
