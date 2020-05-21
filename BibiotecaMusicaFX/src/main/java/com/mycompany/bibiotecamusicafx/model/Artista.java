@@ -1,6 +1,11 @@
 package com.mycompany.bibiotecamusicafx.model;
 
 import com.mycompany.bibiotecamusicafx.utility.Constantes;
+import com.mycompany.bibiotecamusicafx.utility.Utilidades;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
@@ -61,7 +66,7 @@ public class Artista implements Comparable<Artista> {
     public String getAlbumesString() {
         String albumes = "No tiene ningun album relacionado";
         if (tamRealAlbums > 0) {
-            albumes = "Titulo  Genero Fecha de lanzamiento Canciones: " + System.lineSeparator();
+            albumes = "Titulo;Genero;Fecha de lanzamiento;Canciones" + System.lineSeparator();
             for (int i = 0; i < tamRealAlbums; i++) {
                 albumes += albums[i].toString() + System.lineSeparator();
             }
@@ -95,8 +100,24 @@ public class Artista implements Comparable<Artista> {
         return encontrado;
     }
     
-    public void importarAlbums() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void importarAlbums() throws FileNotFoundException, IOException {
+        BufferedReader br = new BufferedReader(new FileReader("albums_de_artista"));
+        String linea;
+        String titulo;
+        String genero;
+        LocalDate fecha;
+        int numCanciones;
+        String[] partes;
+        while ((linea = br.readLine()) != null) {
+            if (this.sePuedenAnhadirMasAlbumes()) {
+                partes = linea.split(";");
+                titulo = partes[0].trim();
+                genero = partes[1].trim();
+                fecha = Utilidades.conversorStringToLocalDate(partes[2].trim());
+                numCanciones = Integer.parseInt(partes[3].trim());
+                anhadirAlbum(new Album(titulo, genero, fecha, numCanciones));                
+            }
+        }
     }
 
     @Override

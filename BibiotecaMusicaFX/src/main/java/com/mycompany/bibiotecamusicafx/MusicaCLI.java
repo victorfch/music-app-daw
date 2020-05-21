@@ -5,6 +5,8 @@ import com.mycompany.bibiotecamusicafx.model.Artista;
 import com.mycompany.bibiotecamusicafx.model.Conjunto;
 import com.mycompany.bibiotecamusicafx.utility.Constantes;
 import com.mycompany.bibiotecamusicafx.utility.Utilidades;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 
 public class MusicaCLI {
@@ -20,7 +22,7 @@ public class MusicaCLI {
      */
     public static Conjunto conjunto = new Conjunto();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         boolean seguir = true;
         while (seguir) {
             int opcion = Integer.parseInt(Utilidades.pedirCadena(Utilidades.menuEstilizadoCLI()));
@@ -50,6 +52,9 @@ public class MusicaCLI {
                     importarAlbumsPorFichero();
                     break;
                 case 9:
+                    conjunto.exportarArtistasAFichero();
+                    break;
+                case 10:
                     seguir = false;
                     Utilidades.mostrarCadena(Constantes.MSG_SALIR);
                     break;
@@ -151,12 +156,14 @@ public class MusicaCLI {
         Utilidades.mostrarCadena(mensaje);
     }
 
-    private static void importarAlbumsPorFichero() {
+    private static void importarAlbumsPorFichero() throws FileNotFoundException, IOException {
         String nombre = Utilidades.pedirCadena("Nombre del artista").trim();
         String mensaje = Constantes.MSG_ARTISTA_NO_ENCONTRADO;
         Artista artista = conjunto.getArtistaPorNombre(nombre);
         if (artista != null) {
-            artista.importarAlbums();  
+            artista.importarAlbums();
+            mensaje = "Importacion realizada con exito";
         }
+        Utilidades.mostrarCadena(mensaje);
     }
 }

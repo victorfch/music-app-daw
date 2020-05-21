@@ -2,6 +2,9 @@ package com.mycompany.bibiotecamusicafx.model;
 
 import com.mycompany.bibiotecamusicafx.comparador.ComparadorArtistaPorEdad;
 import com.mycompany.bibiotecamusicafx.utility.Constantes;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 
 public class Conjunto {
@@ -66,5 +69,17 @@ public class Conjunto {
         }
         return artistas;
     }
-
+    
+    public void exportarArtistasAFichero() throws IOException {
+        BufferedWriter bw = new BufferedWriter(new FileWriter("artistas"));
+        String msg = Constantes.MSG_NO_HAY_ARTISTAS;
+        if (tamReal > 0) { 
+            msg = "";
+            for (int i = 0; i < tamReal; i++) {
+                msg += artistas[i].toString() + System.lineSeparator();
+            }
+        }
+        bw.write(msg);
+        bw.close();
+    }
 }

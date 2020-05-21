@@ -17,7 +17,8 @@ public class Utilidades {
                 + "6. Añadir album" + System.lineSeparator()
                 + "7. Eliminar album" + System.lineSeparator()
                 + "8. Importar albums de artista con fichero" + System.lineSeparator()
-                + "9. Salir" + System.lineSeparator();
+                + "9. Exportar a fichero los artistas" + System.lineSeparator()
+                + "10. Salir" + System.lineSeparator();
     }
 
     public static String menuEstilizadoCLI() {
