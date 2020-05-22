@@ -12,6 +12,10 @@ public class Conjunto {
     private Artista[] artistas = new Artista[Constantes.TAMANHO_MAX];
     private static int tamReal = 0;
 
+    public static int getTamReal() {
+        return tamReal;
+    }
+
     public void guardar(Artista artista) {
         artistas[tamReal++] = artista;
     }
