@@ -1,6 +1,9 @@
 package com.mycompany.bibiotecamusicafx.utility;
 
 public class Constantes {
+    private Constantes() {
+    }
+
     public static final String VISTA_ARTISTAS = "/fxml/Artista.fxml";
     public static final String VISTA_INICIO = "/fxml/Inicio.fxml";
     public static final String VISTA_MENU = "/fxml/Menu.fxml";
@@ -21,6 +24,8 @@ public class Constantes {
     public static final String MSG_SALIR = "Saliendo";
     public static final String MSG_ERROR = "Error";
     public static final String MSG_ARTISTA_ELIMINADO = "Artista eliminado con exito";
+    public static final String SEPARADOR = "__________________________";
+    public static final String NOMBRE_ARTISTA = "Nombre del artista";
     public static final String EXPRESION_REGULAR = "\\d{2}/\\d{2}/\\d{4}";
     public static final int TAMANHO_MAX = 10;
     public static final int ORDENAR_POR_NOMBRE = 1;

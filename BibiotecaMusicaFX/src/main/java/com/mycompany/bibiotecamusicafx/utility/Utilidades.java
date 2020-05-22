@@ -22,11 +22,11 @@ public class Utilidades {
     }
 
     public static String menuEstilizadoCLI() {
-        return "__________________________" + System.lineSeparator()
+        return Constantes.SEPARADOR + System.lineSeparator()
                 + "   Orange Music  " + System.lineSeparator()
-                + "__________________________" + System.lineSeparator()
+                + Constantes.SEPARADOR + System.lineSeparator()
                 + getMenu()
-                + "__________________________" + System.lineSeparator()
+                + Constantes.SEPARADOR + System.lineSeparator()
                 + "Elige una opcion";
     }
 

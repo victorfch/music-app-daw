@@ -6,6 +6,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Conjunto {
 
@@ -54,6 +56,11 @@ public class Conjunto {
         return artista;
     }
 
+    /**
+     * Metodo para devolver los artistas ordenados segun el parametro pasado
+     * @param opcion ordenar por nombre,1 o edad,2
+     * @return devuelve la cadena de artistas ordenador
+     */
     public String ordenarArtistasPorOpcion(int opcion) {
         String artistas = Constantes.MSG_NO_HAY_ARTISTAS;
         if (tamReal > 0) {
@@ -68,22 +75,36 @@ public class Conjunto {
                     .concat(Constantes.ETIQUETA_EDAD).concat(System.lineSeparator());
 
             for (int i = 0; i < tamReal; i++) {
-                artistas += this.artistas[i].toString() + System.lineSeparator();
+                artistas = artistas.concat(this.artistas[i].toString() + System.lineSeparator());
             }
         }
         return artistas;
     }
-    
-    public void exportarArtistasAFichero() throws IOException {
-        BufferedWriter bw = new BufferedWriter(new FileWriter("artistas"));
-        String msg = Constantes.MSG_NO_HAY_ARTISTAS;
-        if (tamReal > 0) { 
-            msg = "";
-            for (int i = 0; i < tamReal; i++) {
-                msg += artistas[i].toString() + System.lineSeparator();
+    /**
+     * Crea un fichero llamado artistas donde se guardan todos los artistas del programa
+     */
+    public void exportarArtistasAFichero() {
+        BufferedWriter bw = null;
+        try {
+            bw = new BufferedWriter(new FileWriter("artistas"));
+            String msg = Constantes.MSG_NO_HAY_ARTISTAS;
+            if (tamReal > 0) {
+                msg = "";
+                for (int i = 0; i < tamReal; i++) {
+                    msg = msg.concat(artistas[i].toString() + System.lineSeparator());
+                }
+                bw.write(msg);
+            }   
+        } catch (IOException ex) {
+            Logger.getLogger(Conjunto.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (bw != null) {
+                    bw.close();
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(Conjunto.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        bw.write(msg);
-        bw.close();
     }
 }

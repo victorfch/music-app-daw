@@ -5,8 +5,6 @@ import com.mycompany.bibiotecamusicafx.model.Artista;
 import com.mycompany.bibiotecamusicafx.model.Conjunto;
 import com.mycompany.bibiotecamusicafx.utility.Constantes;
 import com.mycompany.bibiotecamusicafx.utility.Utilidades;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.time.LocalDate;
 
 public class MusicaCLI {
@@ -22,7 +20,7 @@ public class MusicaCLI {
      */
     public static Conjunto conjunto = new Conjunto();
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         boolean seguir = true;
         while (seguir) {
             int opcion = Integer.parseInt(Utilidades.pedirCadena(Utilidades.menuEstilizadoCLI()));
@@ -116,7 +114,7 @@ public class MusicaCLI {
 
     private static void anhadirAlbum() {
         boolean esFechaNacimientoValida = false;
-        String nombreArtista = Utilidades.pedirCadena("Nombre del artista").trim();
+        String nombreArtista = Utilidades.pedirCadena(Constantes.NOMBRE_ARTISTA).trim();
         String msg = Constantes.MSG_ARTISTA_NO_ENCONTRADO;
         Artista artista = conjunto.getArtistaPorNombre(nombreArtista);
         if (artista != null) {
@@ -143,7 +141,7 @@ public class MusicaCLI {
     }
 
     private static void eliminarAlbum() {
-        String nombre = Utilidades.pedirCadena("Nombre del artista").trim();
+        String nombre = Utilidades.pedirCadena(Constantes.NOMBRE_ARTISTA).trim();
         String mensaje = Constantes.MSG_ARTISTA_NO_ENCONTRADO;
         Artista artista = conjunto.getArtistaPorNombre(nombre);
         if (artista != null) {
@@ -156,8 +154,8 @@ public class MusicaCLI {
         Utilidades.mostrarCadena(mensaje);
     }
 
-    private static void importarAlbumsPorFichero() throws FileNotFoundException, IOException {
-        String nombre = Utilidades.pedirCadena("Nombre del artista").trim();
+    private static void importarAlbumsPorFichero() {
+        String nombre = Utilidades.pedirCadena(Constantes.NOMBRE_ARTISTA).trim();
         String mensaje = Constantes.MSG_ARTISTA_NO_ENCONTRADO;
         Artista artista = conjunto.getArtistaPorNombre(nombre);
         if (artista != null) {

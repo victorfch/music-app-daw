@@ -24,4 +24,9 @@ public class Cancion {
     public String getLetra() {
         return letra;
     }
+
+    public String getGenero() {
+        return genero;
+    }
+    
 }

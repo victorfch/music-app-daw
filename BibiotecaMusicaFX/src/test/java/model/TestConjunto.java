@@ -16,7 +16,6 @@ public class TestConjunto {
 
     @BeforeClass
     public static void setUpClass() {
-
     }
 
     @AfterClass
@@ -32,11 +31,30 @@ public class TestConjunto {
     }
 
     @Test
-    public void testGuardarArtista() {
-        LocalDate fecha1 = LocalDate.parse("1972-10-17");
-        Artista eminem = new Artista("eminem", "eeuu", fecha1);
+    public void testGuardarArtistaYGetArtista() {
+        String nombre = "eminem";
+        String nacionalidad = "eeuu";
+        LocalDate fecha = LocalDate.parse("1972-10-17");
+        Artista eminem = new Artista(nombre, nacionalidad, fecha);
         conjunto.guardar(eminem);
+        Artista artista = conjunto.getArtistaPorNombre(nombre);
+        assertEquals(nombre, artista.getNombre());
+        assertEquals(nacionalidad, artista.getNacionalidad());
+        assertEquals(fecha, artista.getFechaNacimiento());
         assertEquals(1, Conjunto.getTamReal());
         assertNotEquals(2, Conjunto.getTamReal());
     }
+
+    @Test
+    public void testEliminarArtista() {
+        String nombre = "paco";
+        String nacionalidad = "eeuu";
+        LocalDate fecha = LocalDate.parse("1980-08-17");
+        Artista paco = new Artista(nombre, nacionalidad, fecha);
+        conjunto.guardar(paco);
+        assertTrue(conjunto.eliminar(nombre));
+        assertFalse(conjunto.eliminar("sara"));
+        assertEquals(1, Conjunto.getTamReal());
+    }
+
 }
