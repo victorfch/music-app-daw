@@ -59,7 +59,7 @@ public class Conjunto {
     /**
      * Metodo para devolver los artistas ordenados segun el parametro pasado
      * @param opcion ordenar por nombre,1 o edad,2
-     * @return devuelve la cadena de artistas ordenador
+     * @return devuelve la cadena de artistas ordenado
      */
     public String ordenarArtistasPorOpcion(int opcion) {
         String artistas = Constantes.MSG_NO_HAY_ARTISTAS;

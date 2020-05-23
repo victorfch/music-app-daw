@@ -7,7 +7,6 @@ package utility;
 
 import com.mycompany.bibiotecamusicafx.utility.Constantes;
 import com.mycompany.bibiotecamusicafx.utility.Utilidades;
-import static com.mycompany.bibiotecamusicafx.utility.Utilidades.getMenu;
 import java.time.LocalDate;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -64,6 +63,12 @@ public class TestUtilidades {
         assertEquals(esperado, Utilidades.menuEstilizadoCLI());
     }
     
+    @Test
+    public void testFormatearEspacios() {
+        assertEquals("paco%20perez", Utilidades.formatearEspacios(" Paco perez "));
+        assertNotEquals(" Paco perez ", Utilidades.formatearEspacios(" Paco perez "));
+    }
+
     @Test
     public void testEsFechaValida() {
         assertTrue(Utilidades.esFechaValida("12/09/2000"));

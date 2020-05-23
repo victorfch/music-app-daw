@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class ArtistaServicioArray implements ArtistaServicio {
     private static ArtistaServicioArray instancia;
-    private ArrayList<Artista> artistas = new ArrayList<Artista>();  //temporal hasta tener MySQL
+    private ArrayList<Artista> artistas = new ArrayList<>();  //temporal hasta tener MySQL
     
 
     @Override
@@ -21,10 +21,10 @@ public class ArtistaServicioArray implements ArtistaServicio {
 
     @Override
     public void editar(Artista artista) {
-        boolean terminado = false;
-        for (int i = 0; i < artistas.size(); i++) {
+        boolean encontrado = false;
+        for (int i = 0; i < artistas.size() && !encontrado; i++) {
             if (artistas.get(i).getId().equals(artista.getId())) {
-                terminado = true;
+                encontrado = true;
                 artistas.set(i, artista);
             }
         }

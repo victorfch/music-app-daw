@@ -40,7 +40,7 @@ public class ArtistaEditController implements Initializable {
         String nombre = this.nombre.getText().trim();
         String nacionalidad = this.nacionalidad.getText().trim();
         if (id.getText().isEmpty()) {
-            if (!nombre.isEmpty() && !nacionalidad.isEmpty() && !(fechaNacimiento.getValue() == null)) {
+            if (!nombre.isEmpty() && !nacionalidad.isEmpty() && (fechaNacimiento.getValue() != null)) {
                 Artista artista = new Artista(nombre, nacionalidad, fechaNacimiento.getValue());
                 servicioArtistas.guardar(artista);
                 ArtistaController controlador = (ArtistaController) VentanasYControladores.getControlador("artista");
@@ -50,11 +50,7 @@ public class ArtistaEditController implements Initializable {
                 alerta.setText(Constantes.MSG_COMPLETAR_CAMPOS);
             }
         } else {
-            System.out.println("editar");
             editar();
-            ArtistaController controlador = (ArtistaController) VentanasYControladores.getControlador("artista");
-            controlador.actualizarPanelArtistas();
-            VentanasYControladores.getVentana("artista-editar").close();
         }
     }
 
@@ -72,13 +68,12 @@ public class ArtistaEditController implements Initializable {
 
     public void editar() {
         Artista artista = servicioArtistas.getArtista(id.getText());
-        System.out.print("artista antes: ");
-        System.out.println(artista);
         artista.setNombre(this.nombre.getText().trim());
         artista.setNacionalidad(this.nacionalidad.getText().trim());
         artista.setFechaNacimiento(this.fechaNacimiento.getValue());
-        System.out.print("artista despues: ");
-        System.out.println(artista);
         servicioArtistas.editar(artista);
+        ArtistaController controlador = (ArtistaController) VentanasYControladores.getControlador("artista");
+        controlador.actualizarPanelArtistas();
+        VentanasYControladores.getVentana("artista-editar").close();
     }
 }

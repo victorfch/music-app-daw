@@ -6,9 +6,12 @@ import javafx.stage.Stage;
 public abstract class VentanasYControladores {
     private static HashMap<String, Stage> ventanas = new HashMap<>();
     private static HashMap<String, Object> controladores = new HashMap<>();
+
+    private VentanasYControladores() {
+    }
     
-    public static void anhadirVentana(String nombre, Stage Ventana) {
-        ventanas.put(nombre, Ventana);
+    public static void anhadirVentana(String nombre, Stage ventana) {
+        ventanas.put(nombre, ventana);
     }
     
     public static Stage getVentana(String nombre) {

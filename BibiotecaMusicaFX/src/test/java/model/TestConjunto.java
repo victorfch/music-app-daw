@@ -31,7 +31,7 @@ public class TestConjunto {
     }
 
     @Test
-    public void testGuardarArtistaYGetArtista() {
+    public void testGuardarYGetArtista() {
         String nombre = "eminem";
         String nacionalidad = "eeuu";
         LocalDate fecha = LocalDate.parse("1972-10-17");
@@ -43,6 +43,11 @@ public class TestConjunto {
         assertEquals(fecha, artista.getFechaNacimiento());
         assertEquals(1, Conjunto.getTamReal());
         assertNotEquals(2, Conjunto.getTamReal());
+    }
+    
+    @Test
+    public void testSePuedeGuardar() {
+        assertTrue(conjunto.sePuedeGuardar());
     }
 
     @Test

@@ -8,6 +8,9 @@ import java.util.regex.Pattern;
 public class Utilidades {
     public static Scanner sc = new Scanner(System.in);
 
+    private Utilidades() {
+    }
+
     public static String getMenu() {
         return "1. Añadir artista" + System.lineSeparator()
                 + "2. Mostrar artistas ordenados por nombre" + System.lineSeparator()
