@@ -6,4 +6,5 @@ Version 01 del projecto donde el cliente podrá guardar información sobre sus a
 
 ## Capturas de pantalla
 Resumen del resultado de sonar
-<img src="BibliotecaMusica/docs/resumen-resultado.png" width="100"/>
+
+<img src="BibliotecaMusicaFX/docs/resumen-resultado.png" width="100">
