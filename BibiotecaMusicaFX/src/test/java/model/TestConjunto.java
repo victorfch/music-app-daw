@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 public class TestConjunto {
 
@@ -30,6 +31,7 @@ public class TestConjunto {
     public void tearDown() {
     }
 
+    @Ignore
     @Test
     public void testGuardarYGetArtista() {
         String nombre = "eminem";
@@ -45,11 +47,13 @@ public class TestConjunto {
         assertNotEquals(2, Conjunto.getTamReal());
     }
     
+    @Ignore
     @Test
     public void testSePuedeGuardar() {
         assertTrue(conjunto.sePuedeGuardar());
     }
 
+    @Ignore
     @Test
     public void testEliminarArtista() {
         String nombre = "paco";

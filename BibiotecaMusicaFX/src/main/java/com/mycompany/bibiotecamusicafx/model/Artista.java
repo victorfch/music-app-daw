@@ -1,17 +1,11 @@
 package com.mycompany.bibiotecamusicafx.model;
 
 import com.mycompany.bibiotecamusicafx.utility.Constantes;
-import com.mycompany.bibiotecamusicafx.utility.Utilidades;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
-import java.util.Date;
+import java.sql.Date;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Artista implements Comparable<Artista> {
 
@@ -20,14 +14,12 @@ public class Artista implements Comparable<Artista> {
     private String nombre;
     private String nacionalidad;
     private Date fechaNacimiento;
-    private int tamRealAlbums = 0;
-    private Album[] albums = new Album[Constantes.TAMANHO_MAX];
 
     public Artista(String nombre, String nacionalidad, LocalDate fechaNacimiento) {
         this.id = UUID.randomUUID().toString();
         this.nombre = nombre;
         this.nacionalidad = nacionalidad;
-        this.fechaNacimiento = Date.from(fechaNacimiento.atStartOfDay(zonaPorDefecto).toInstant());
+        this.fechaNacimiento = Date.valueOf(fechaNacimiento);
     }
 
     public String getId() {
@@ -56,82 +48,16 @@ public class Artista implements Comparable<Artista> {
         return Period.between(fechaNacimientoLocalDate, hoy).getYears();
     }
 
+    public Date getFechaNacimientoDate() {
+        return fechaNacimiento;
+    }
+    
     public LocalDate getFechaNacimiento() {
         return fechaNacimiento.toInstant().atZone(zonaPorDefecto).toLocalDate();
     }
 
     public void setFechaNacimiento(LocalDate fechaNacimiento) {
-        this.fechaNacimiento = Date.from(fechaNacimiento.atStartOfDay(zonaPorDefecto).toInstant());
-    }
-    
-    public String getAlbumesString() {
-        String albumes = "No tiene ningun album relacionado";
-        if (tamRealAlbums > 0) {
-            albumes = "Titulo;Genero;Fecha de lanzamiento;Canciones" + System.lineSeparator();
-            for (int i = 0; i < tamRealAlbums; i++) {
-                albumes = albumes.concat(albums[i].toString() + System.lineSeparator());
-            }
-        }
-        return albumes;
-    }
-
-    public boolean sePuedenAnhadirMasAlbumes() {
-        return tamRealAlbums < Constantes.TAMANHO_MAX;
-    }
-
-    public void anhadirAlbum(Album album) {
-        albums[tamRealAlbums++] = album;
-    }
-    
-    public boolean eliminarAlbum(String titulo) {
-        boolean encontrado = false;
-        for (int i = 0; i < tamRealAlbums; i++) {
-            if ((albums[i].getTitulo().equals(titulo)) && (tamRealAlbums - i > 1)) {
-                albums[i] = albums[i + 1];
-                encontrado = true;
-            } else if (albums[i].getTitulo().equals(titulo) && (tamRealAlbums - i == 1)) {
-                encontrado = true;
-            } else if (encontrado && (tamRealAlbums - i > 1)) {
-                albums[i] = albums[i + 1];
-            }
-        }
-        if (encontrado) {
-            tamRealAlbums--;
-        }
-        return encontrado;
-    }
-    
-    public void importarAlbums() {
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new FileReader("albums_de_artista"));
-            String linea;
-            String titulo;
-            String genero;
-            LocalDate fecha;
-            int numCanciones;
-            String[] partes;
-            while ((linea = br.readLine()) != null) {
-                if (this.sePuedenAnhadirMasAlbumes()) {
-                    partes = linea.split(";");
-                    titulo = partes[0].trim();
-                    genero = partes[1].trim();
-                    fecha = Utilidades.conversorStringToLocalDate(partes[2].trim());
-                    numCanciones = Integer.parseInt(partes[3].trim());
-                    anhadirAlbum(new Album(titulo, genero, fecha, numCanciones));
-                }
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(Artista.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (br != null) {
-                    br.close();
-                }
-            } catch (IOException ex) {
-                Logger.getLogger(Artista.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        this.fechaNacimiento = Date.valueOf(fechaNacimiento);
     }
 
     @Override

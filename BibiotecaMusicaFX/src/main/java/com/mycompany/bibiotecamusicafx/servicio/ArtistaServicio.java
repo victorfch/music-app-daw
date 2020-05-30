@@ -14,4 +14,5 @@ public interface ArtistaServicio {
     public abstract Artista getArtista(String id);
     public abstract List<Artista> obtenerTodos();
     public abstract int contarArtistas();
+    public abstract void cerrarSesion();
 }

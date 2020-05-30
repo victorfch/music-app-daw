@@ -3,10 +3,11 @@ package com.mycompany.bibiotecamusicafx.controller;
 import com.mycompany.bibiotecamusicafx.utility.Constantes;
 import com.mycompany.bibiotecamusicafx.model.Artista;
 import com.mycompany.bibiotecamusicafx.servicio.ArtistaServicio;
-import com.mycompany.bibiotecamusicafx.servicio.ArtistaServicioArray;
+import com.mycompany.bibiotecamusicafx.servicio.ArtistaServicioMySQL;
 import com.mycompany.bibiotecamusicafx.utility.VentanasYControladores;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -27,7 +28,7 @@ import javafx.stage.Stage;
 
 public class ArtistaController implements Initializable {
 
-    ArtistaServicio servicioArtistas = ArtistaServicioArray.getInstancia();
+    ArtistaServicio servicioArtistas;
 
     @FXML
     private TextField nombre;
@@ -35,6 +36,10 @@ public class ArtistaController implements Initializable {
     private TextField edad;
     @FXML
     private ScrollPane contenedorArtistas;
+
+    public ArtistaController() throws SQLException {
+        this.servicioArtistas = ArtistaServicioMySQL.getServicioMySQL();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

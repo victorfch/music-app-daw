@@ -1,27 +1,40 @@
 package com.mycompany.bibiotecamusicafx;
 
+import com.mycompany.bibiotecamusicafx.servicio.ArtistaServicio;
+import com.mycompany.bibiotecamusicafx.servicio.ArtistaServicioMySQL;
 import com.mycompany.bibiotecamusicafx.utility.VentanasYControladores;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
+import javafx.stage.WindowEvent;
 
 public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        ArtistaServicio servicio = ArtistaServicioMySQL.getServicioMySQL();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));
-        
+
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
-        
+
         stage.setTitle("Orange Music");
         stage.setScene(scene);
         VentanasYControladores.anhadirVentana("principal", stage);
         stage.show();
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent t) {
+                servicio.cerrarSesion();
+                Platform.exit();
+                System.exit(0);
+            }
+        });
     }
 
     /**
