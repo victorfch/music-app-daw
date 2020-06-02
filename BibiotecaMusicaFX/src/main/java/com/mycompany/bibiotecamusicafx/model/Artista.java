@@ -9,14 +9,18 @@ import java.util.UUID;
 
 public class Artista implements Comparable<Artista> {
 
-    private static ZoneId zonaPorDefecto = ZoneId.systemDefault();
+    private static final ZoneId zonaPorDefecto = ZoneId.systemDefault();
     private String id;
     private String nombre;
     private String nacionalidad;
     private Date fechaNacimiento;
 
-    public Artista(String nombre, String nacionalidad, LocalDate fechaNacimiento) {
-        this.id = UUID.randomUUID().toString();
+    public Artista(String nombre, String nacionalidad, LocalDate fechaNacimiento, String id) {
+        if (id == null) {
+            this.id = UUID.randomUUID().toString();
+        } else {
+            this.id = id;
+        }
         this.nombre = nombre;
         this.nacionalidad = nacionalidad;
         this.fechaNacimiento = Date.valueOf(fechaNacimiento);
@@ -43,23 +47,23 @@ public class Artista implements Comparable<Artista> {
     }
 
     public int getEdad() {
-        LocalDate fechaNacimientoLocalDate = fechaNacimiento.toInstant().atZone(zonaPorDefecto).toLocalDate();
+        LocalDate fechaNacimientoLocalDate = fechaNacimiento.toLocalDate();
         LocalDate hoy = LocalDate.now();
         return Period.between(fechaNacimientoLocalDate, hoy).getYears();
     }
-
+    
     public Date getFechaNacimientoDate() {
         return fechaNacimiento;
     }
-    
-    public LocalDate getFechaNacimiento() {
-        return fechaNacimiento.toInstant().atZone(zonaPorDefecto).toLocalDate();
-    }
 
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento.toLocalDate();
+    }
+    
     public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = Date.valueOf(fechaNacimiento);
     }
-
+    
     @Override
     public String toString() {
         return this.nombre + Constantes.GUION + this.nacionalidad + Constantes.GUION + getEdad();

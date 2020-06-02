@@ -10,7 +10,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -82,20 +81,17 @@ public class ArtistaController implements Initializable {
             cuadricula.add(etiquetaNacionalidad, 1, 0);
             cuadricula.add(etiquetaEdad, 2, 0);
             cuadricula.add(etiquetaAcciones, 3, 0);
-            for (final Artista artista : servicioArtistas.obtenerTodos()) {
+            for (Artista artista : servicioArtistas.obtenerTodos()) {
                 Label nombre = new Label(artista.getNombre());
                 Label nacionalidad = new Label(artista.getNacionalidad());
                 Label edad = new Label(String.valueOf(artista.getEdad()));
                 Button boton = new Button("Editar");
-                boton.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        ArtistaEditController editarControlador;
-                        editarControlador = (ArtistaEditController) VentanasYControladores.getControlador("artista-editar");
-                        editarControlador.iniciarDatos(artista);
-                        Stage ventana = VentanasYControladores.getVentana("artista-editar");
-                        ventana.showAndWait();
-                    }
+                boton.setOnAction((ActionEvent event) -> {
+                    ArtistaEditController editarControlador;
+                    editarControlador = (ArtistaEditController) VentanasYControladores.getControlador("artista-editar");
+                    editarControlador.iniciarDatos(artista);
+                    Stage ventana = VentanasYControladores.getVentana("artista-editar");
+                    ventana.showAndWait();
                 });
                 cuadricula.add(nombre, 0, contador);
                 cuadricula.add(nacionalidad, 1, contador);

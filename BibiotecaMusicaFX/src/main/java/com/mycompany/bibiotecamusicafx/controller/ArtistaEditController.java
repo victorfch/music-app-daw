@@ -46,7 +46,7 @@ public class ArtistaEditController implements Initializable {
         String nacionalidad = this.nacionalidad.getText().trim();
         if (id.getText().isEmpty()) {
             if (!nombre.isEmpty() && !nacionalidad.isEmpty() && (fechaNacimiento.getValue() != null)) {
-                Artista artista = new Artista(nombre, nacionalidad, fechaNacimiento.getValue());
+                Artista artista = new Artista(nombre, nacionalidad, fechaNacimiento.getValue(), null);
                 servicioArtistas.guardar(artista);
                 ArtistaController controlador = (ArtistaController) VentanasYControladores.getControlador("artista");
                 controlador.actualizarPanelArtistas();

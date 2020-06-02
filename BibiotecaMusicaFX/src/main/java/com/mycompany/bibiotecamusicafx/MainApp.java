@@ -2,6 +2,7 @@ package com.mycompany.bibiotecamusicafx;
 
 import com.mycompany.bibiotecamusicafx.servicio.ArtistaServicio;
 import com.mycompany.bibiotecamusicafx.servicio.ArtistaServicioMySQL;
+import com.mycompany.bibiotecamusicafx.utility.Constantes;
 import com.mycompany.bibiotecamusicafx.utility.VentanasYControladores;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -19,10 +20,8 @@ public class MainApp extends Application {
     public void start(Stage stage) throws Exception {
         ArtistaServicio servicio = ArtistaServicioMySQL.getServicioMySQL();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));
-
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
-
         stage.setTitle("Orange Music");
         stage.setScene(scene);
         VentanasYControladores.anhadirVentana("principal", stage);
