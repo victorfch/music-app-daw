@@ -7,7 +7,6 @@ import com.mycompany.bibiotecamusicafx.utility.Constantes;
 import com.mycompany.bibiotecamusicafx.utility.VentanasYControladores;
 import java.net.URL;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,21 +40,22 @@ public class ArtistaEditController implements Initializable {
     }
 
     @FXML
-    private void guardar(ActionEvent event) throws ParseException {
+    private void guardar(ActionEvent event) {
         String nombre = this.nombre.getText().trim();
         String nacionalidad = this.nacionalidad.getText().trim();
-        if (id.getText().isEmpty()) {
-            if (!nombre.isEmpty() && !nacionalidad.isEmpty() && (fechaNacimiento.getValue() != null)) {
+
+        if (!nombre.isEmpty() && !nacionalidad.isEmpty() && (fechaNacimiento.getValue() != null)) {
+            if (id.getText().isEmpty()) {
                 Artista artista = new Artista(nombre, nacionalidad, fechaNacimiento.getValue(), null);
                 servicioArtistas.guardar(artista);
                 ArtistaController controlador = (ArtistaController) VentanasYControladores.getControlador("artista");
-                controlador.actualizarPanelArtistas();
+                controlador.actualizarPanelArtistas(servicioArtistas.obtenerTodos());
                 VentanasYControladores.getVentana("artista-editar").close();
             } else {
-                alerta.setText(Constantes.MSG_COMPLETAR_CAMPOS);
+                editar();
             }
         } else {
-            editar();
+            alerta.setText(Constantes.MSG_COMPLETAR_CAMPOS);
         }
     }
 
@@ -78,7 +78,7 @@ public class ArtistaEditController implements Initializable {
         artista.setFechaNacimiento(this.fechaNacimiento.getValue());
         servicioArtistas.editar(artista);
         ArtistaController controlador = (ArtistaController) VentanasYControladores.getControlador("artista");
-        controlador.actualizarPanelArtistas();
+        controlador.actualizarPanelArtistas(servicioArtistas.obtenerTodos());
         VentanasYControladores.getVentana("artista-editar").close();
     }
 }

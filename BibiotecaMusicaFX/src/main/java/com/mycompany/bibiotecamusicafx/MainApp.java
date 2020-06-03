@@ -2,12 +2,10 @@ package com.mycompany.bibiotecamusicafx;
 
 import com.mycompany.bibiotecamusicafx.servicio.ArtistaServicio;
 import com.mycompany.bibiotecamusicafx.servicio.ArtistaServicioMySQL;
-import com.mycompany.bibiotecamusicafx.utility.Constantes;
 import com.mycompany.bibiotecamusicafx.utility.VentanasYControladores;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -26,13 +24,10 @@ public class MainApp extends Application {
         stage.setScene(scene);
         VentanasYControladores.anhadirVentana("principal", stage);
         stage.show();
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent t) {
-                servicio.cerrarSesion();
-                Platform.exit();
-                System.exit(0);
-            }
+        stage.setOnCloseRequest((WindowEvent t) -> {
+            servicio.cerrarSesion();
+            Platform.exit();
+            System.exit(0);
         });
     }
 
