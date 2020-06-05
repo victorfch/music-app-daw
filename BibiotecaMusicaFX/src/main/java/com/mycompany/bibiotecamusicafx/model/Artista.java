@@ -3,13 +3,11 @@ package com.mycompany.bibiotecamusicafx.model;
 import com.mycompany.bibiotecamusicafx.utility.Constantes;
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.ZoneId;
 import java.sql.Date;
 import java.util.UUID;
 
 public class Artista implements Comparable<Artista> {
 
-    private static final ZoneId zonaPorDefecto = ZoneId.systemDefault();
     private String id;
     private String nombre;
     private String nacionalidad;

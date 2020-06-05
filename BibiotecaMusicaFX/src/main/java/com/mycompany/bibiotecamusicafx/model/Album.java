@@ -1,21 +1,30 @@
 package com.mycompany.bibiotecamusicafx.model;
 
+import java.sql.Date;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
+import java.util.UUID;
 
 public class Album {
-    private static ZoneId zonaPorDefecto = ZoneId.systemDefault();
+    private String id;
+    private String artistaId;
     private String titulo;
     private String genero;
     private Date fechaLanzamiento;
-    private int numCanciones;
 
-    public Album(String titulo, String genero, LocalDate fechaLanzamiento, int numCanciones) {
+    public Album(String artistaId, String titulo, String genero, LocalDate fechaLanzamiento) {
+        this.id = UUID.randomUUID().toString();
+        this.artistaId = artistaId;
         this.titulo = titulo;
         this.genero = genero;
-        this.fechaLanzamiento = Date.from(fechaLanzamiento.atStartOfDay(zonaPorDefecto).toInstant());
-        this.numCanciones = numCanciones;
+        this.fechaLanzamiento = Date.valueOf(fechaLanzamiento);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getArtistaId() {
+        return artistaId;
     }
 
     public String getTitulo() {
@@ -26,17 +35,17 @@ public class Album {
         return genero;
     }
 
-    public LocalDate getFechaLanzamiento() {
-        return fechaLanzamiento.toInstant().atZone(zonaPorDefecto).toLocalDate();
+    public Date getFechaLanzamiento() {
+        return fechaLanzamiento;
     }
-
-    public int getNumCanciones() {
-        return numCanciones;
+    
+    public LocalDate getFechaLanzamientoLocalDate() {
+        return fechaLanzamiento.toLocalDate();
     }
 
     @Override
     public String toString() {
         return titulo + ";" + genero + ";" 
-                + this.getFechaLanzamiento().toString() + ";" + numCanciones;
+                + this.getFechaLanzamiento().toString();
     }
 }

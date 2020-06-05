@@ -1,5 +1,7 @@
 package com.mycompany.bibiotecamusicafx;
 
+import com.mycompany.bibiotecamusicafx.servicio.AlbumServicio;
+import com.mycompany.bibiotecamusicafx.servicio.AlbumServicioMySQL;
 import com.mycompany.bibiotecamusicafx.servicio.ArtistaServicio;
 import com.mycompany.bibiotecamusicafx.servicio.ArtistaServicioMySQL;
 import com.mycompany.bibiotecamusicafx.utility.VentanasYControladores;
@@ -16,7 +18,8 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        ArtistaServicio servicio = ArtistaServicioMySQL.getServicioMySQL();
+        ArtistaServicio servicioArtistas = ArtistaServicioMySQL.getServicioMySQL();
+        AlbumServicio servicioAlbumes = AlbumServicioMySQL.getServicioMySQL();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
@@ -25,7 +28,8 @@ public class MainApp extends Application {
         VentanasYControladores.anhadirVentana("principal", stage);
         stage.show();
         stage.setOnCloseRequest((WindowEvent t) -> {
-            servicio.cerrarSesion();
+            servicioArtistas.cerrarSesion();
+            servicioAlbumes.cerrarSesion();
             Platform.exit();
             System.exit(0);
         });

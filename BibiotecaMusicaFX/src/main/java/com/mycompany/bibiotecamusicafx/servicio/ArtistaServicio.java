@@ -4,10 +4,6 @@ import com.mycompany.bibiotecamusicafx.model.Artista;
 import java.util.List;
 import java.util.Map;
 
-/**
- *
- * @author victor
- */
 public interface ArtistaServicio {
     public abstract void guardar(Artista artista);
     public abstract void eliminar(String id);

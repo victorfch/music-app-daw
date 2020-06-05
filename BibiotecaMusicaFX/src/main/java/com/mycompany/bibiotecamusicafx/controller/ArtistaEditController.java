@@ -17,7 +17,7 @@ import javafx.scene.control.TextField;
 
 public class ArtistaEditController implements Initializable {
 
-    ArtistaServicio servicioArtistas;
+    private ArtistaServicio servicioArtistas;
 
     @FXML
     private TextField nombre;
@@ -49,7 +49,7 @@ public class ArtistaEditController implements Initializable {
                 Artista artista = new Artista(nombre, nacionalidad, fechaNacimiento.getValue(), null);
                 servicioArtistas.guardar(artista);
                 ArtistaController controlador = (ArtistaController) VentanasYControladores.getControlador("artista");
-                controlador.actualizarPanelArtistas(servicioArtistas.obtenerTodos());
+                controlador.actualizarPanel(servicioArtistas.obtenerTodos());
                 VentanasYControladores.getVentana("artista-editar").close();
             } else {
                 editar();
@@ -78,7 +78,7 @@ public class ArtistaEditController implements Initializable {
         artista.setFechaNacimiento(this.fechaNacimiento.getValue());
         servicioArtistas.editar(artista);
         ArtistaController controlador = (ArtistaController) VentanasYControladores.getControlador("artista");
-        controlador.actualizarPanelArtistas(servicioArtistas.obtenerTodos());
+        controlador.actualizarPanel(servicioArtistas.obtenerTodos());
         VentanasYControladores.getVentana("artista-editar").close();
     }
 }

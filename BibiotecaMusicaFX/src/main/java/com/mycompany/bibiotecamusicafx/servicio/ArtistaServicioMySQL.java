@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,8 +18,7 @@ public class ArtistaServicioMySQL implements ArtistaServicio {
     private static Connection conexion;
     private static ArtistaServicioMySQL instancia;
     
-    private ArtistaServicioMySQL() {
-    }
+    private ArtistaServicioMySQL() {}
     
     @Override
     public void guardar(Artista artista) {
@@ -140,8 +138,10 @@ public class ArtistaServicioMySQL implements ArtistaServicio {
     }
     
     public static ArtistaServicio getServicioMySQL() throws SQLException {
-        if (instancia == null) {
+        if (conexion == null) {
             conexion = Conexion.getConexion();
+        }
+        if (instancia == null) {
             instancia = new ArtistaServicioMySQL();
         }
         return instancia;

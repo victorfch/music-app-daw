@@ -33,7 +33,7 @@ import javafx.stage.Stage;
 
 public class ArtistaController implements Initializable {
 
-    ArtistaServicio servicioArtistas;
+    private ArtistaServicio servicioArtistas;
 
     @FXML
     private TextField nombre;
@@ -49,7 +49,7 @@ public class ArtistaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         VentanasYControladores.anhadirControlador("artista", this);
-        actualizarPanelArtistas(servicioArtistas.obtenerTodos());
+        actualizarPanel(servicioArtistas.obtenerTodos());
     }
 
     @FXML
@@ -66,7 +66,7 @@ public class ArtistaController implements Initializable {
         ventana.showAndWait();
     }
 
-    public void actualizarPanelArtistas(List artistas) {
+    public void actualizarPanel(List artistas) {
         contenedorArtistas.setContent(null);
         if (artistas.isEmpty()) {
             Label warning = new Label(Constantes.MSG_NO_HAY_ARTISTAS);
@@ -118,7 +118,7 @@ public class ArtistaController implements Initializable {
                 });
                 menuItem2.setOnAction((ActionEvent event) -> {
                     servicioArtistas.eliminar(artista.getId());
-                    actualizarPanelArtistas(servicioArtistas.obtenerTodos());
+                    actualizarPanel(servicioArtistas.obtenerTodos());
                 });
                 menuItem3.setOnAction((ActionEvent event) -> {
                     System.out.println("Ver");
@@ -145,11 +145,10 @@ public class ArtistaController implements Initializable {
         }
         if (filtro.size() > 0) {
             List<Artista> artistasFiltrados = servicioArtistas.buscarConFiltro(filtro);
-            actualizarPanelArtistas(artistasFiltrados);
+            actualizarPanel(artistasFiltrados);
         } else {
-            actualizarPanelArtistas(servicioArtistas.obtenerTodos());
+            actualizarPanel(servicioArtistas.obtenerTodos());
         }
-
     }
 
 }
