@@ -10,7 +10,7 @@ public interface AlbumServicio {
     public abstract void editar(Album album);
     public abstract List<Album> buscarConFiltro(Map filtro);
     public abstract Album getAlbum(String id);
-    public abstract List<Album> obtenerTodos();
+    public abstract Map<String, Album> obtenerTodos();
     public abstract int contarAlbums();
     public abstract void cerrarSesion();
 }

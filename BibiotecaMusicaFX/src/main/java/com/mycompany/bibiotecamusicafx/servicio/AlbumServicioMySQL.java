@@ -1,10 +1,16 @@
 package com.mycompany.bibiotecamusicafx.servicio;
 
 import com.mycompany.bibiotecamusicafx.model.Album;
+import com.mycompany.bibiotecamusicafx.model.Artista;
 import com.mycompany.bibiotecamusicafx.model.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -65,8 +71,29 @@ public class AlbumServicioMySQL implements AlbumServicio {
     }
 
     @Override
-    public List<Album> obtenerTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public HashMap<String, Album> obtenerTodos() {
+        HashMap<String, Album> albums = new HashMap<>();
+        ArrayList<Album> albumes = new ArrayList<>();
+        String sqlGetAll = "SELECT artista.nombre, album.artista_id, album.id, "
+                + "album.titulo, album.genero, album.fecha_lanzamiento"
+                + " FROM album INNER JOIN artista ON artista.id = album.artista_id";
+        Statement stmt;
+        try {
+            stmt = conexion.createStatement();
+            ResultSet resultado = stmt.executeQuery(sqlGetAll);
+            while (resultado.next()) {
+                String artistaId = resultado.getString("album.artista_id");
+                String id = resultado.getString("album.id");
+                String titulo = resultado.getString("album.titulo");
+                String genero = resultado.getString("album.genero");
+                LocalDate fecha = resultado.getDate("album.fecha_lanzamiento").toLocalDate();
+                albums.put(resultado.getString("artista.nombre"), new Album(artistaId, titulo, genero, fecha, id));
+                //albumes.add(new Album(artistaId, titulo, genero, fecha, id));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ArtistaServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return albums;
     }
 
     @Override

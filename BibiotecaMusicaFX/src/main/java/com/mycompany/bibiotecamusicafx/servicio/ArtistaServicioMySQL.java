@@ -30,7 +30,6 @@ public class ArtistaServicioMySQL implements ArtistaServicio {
             stmt.setString(3, artista.getNacionalidad());
             stmt.setDate(4, artista.getFechaNacimientoDate());
             stmt.executeUpdate();
-            
         } catch (SQLException ex) {
             Logger.getLogger(ArtistaServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -65,14 +64,12 @@ public class ArtistaServicioMySQL implements ArtistaServicio {
         } catch (SQLException ex) {
             Logger.getLogger(ArtistaServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
     
     @Override
     public ArrayList<Artista> obtenerTodos() {
         ArrayList<Artista> artistas = new ArrayList<>();
         String sqlGetAll = "SELECT * FROM artista";
-        Artista artista;
         Statement stmt;
         try {
             stmt = conexion.createStatement();
@@ -82,8 +79,7 @@ public class ArtistaServicioMySQL implements ArtistaServicio {
                 String nombre = resultado.getString("nombre");
                 String nacionalidad = resultado.getString("nacionalidad");
                 LocalDate fecha = resultado.getDate("fecha_nacimiento").toLocalDate();
-                artista = new Artista(nombre, nacionalidad, fecha, id);
-                artistas.add(artista);
+                artistas.add(new Artista(nombre, nacionalidad, fecha, id));
             }
         } catch (SQLException ex) {
             Logger.getLogger(ArtistaServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
@@ -175,7 +171,6 @@ public class ArtistaServicioMySQL implements ArtistaServicio {
             } else {
                 stmt.setString(1, nacionalidad);
             }
-            
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 artista = new Artista(
@@ -185,13 +180,10 @@ public class ArtistaServicioMySQL implements ArtistaServicio {
                         rs.getString("id")
                 );
                 artistas.add(artista);
-                
             }
         } catch (SQLException ex) {
             Logger.getLogger(ArtistaServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         return artistas;
     }
-    
 }

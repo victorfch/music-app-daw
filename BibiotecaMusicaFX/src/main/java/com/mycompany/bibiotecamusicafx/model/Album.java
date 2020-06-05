@@ -5,22 +5,22 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public class Album {
-    private String id;
     private String artistaId;
     private String titulo;
     private String genero;
     private Date fechaLanzamiento;
+    private String id;
 
-    public Album(String artistaId, String titulo, String genero, LocalDate fechaLanzamiento) {
-        this.id = UUID.randomUUID().toString();
+    public Album(String artistaId, String titulo, String genero, LocalDate fechaLanzamiento, String id) {
         this.artistaId = artistaId;
         this.titulo = titulo;
         this.genero = genero;
         this.fechaLanzamiento = Date.valueOf(fechaLanzamiento);
-    }
-
-    public String getId() {
-        return id;
+        if (id == null) {
+            this.id = UUID.randomUUID().toString();
+        } else {
+            this.id = id;
+        }
     }
 
     public String getArtistaId() {
@@ -41,6 +41,10 @@ public class Album {
     
     public LocalDate getFechaLanzamientoLocalDate() {
         return fechaLanzamiento.toLocalDate();
+    }
+    
+    public String getId() {
+        return id;
     }
 
     @Override

@@ -25,7 +25,7 @@ import javafx.util.StringConverter;
 
 public class AlbumEditController implements Initializable {
     
-    private AlbumServicio servicioAlbums;
+    private AlbumServicio servicioAlbumes;
 
     private ArtistaServicio servicioArtistas;
     @FXML
@@ -45,7 +45,7 @@ public class AlbumEditController implements Initializable {
 
     public AlbumEditController() throws SQLException {
         this.servicioArtistas = ArtistaServicioMySQL.getServicioMySQL();
-        this.servicioAlbums = AlbumServicioMySQL.getServicioMySQL();
+        this.servicioAlbumes = AlbumServicioMySQL.getServicioMySQL();
     }
 
     /**
@@ -87,12 +87,11 @@ public class AlbumEditController implements Initializable {
         String nombre = titulo.getText().trim();
         String genero = this.genero.getText().trim();
         if (!nombre.isEmpty() && !genero.isEmpty() && fecha.getValue() != null) {
-            Album album = new Album(comboArtistas.getValue().getId(), nombre, genero, fecha.getValue());
-            servicioAlbums.guardar(album);
+            Album album = new Album(comboArtistas.getValue().getId(), nombre, genero, fecha.getValue(), null);
+            servicioAlbumes.guardar(album);
             AlbumController albumController = (AlbumController) VentanasYControladores.getControlador("album");
-            albumController.actualizarPanel();
+            albumController.actualizarPanel(servicioAlbumes.obtenerTodos());
             VentanasYControladores.getVentana("album-editar").close();
-            
         } else {
             warning.setText(Constantes.MSG_COMPLETAR_CAMPOS);
         }
