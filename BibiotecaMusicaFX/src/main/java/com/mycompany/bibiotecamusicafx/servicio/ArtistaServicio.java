@@ -13,4 +13,5 @@ public interface ArtistaServicio {
     public abstract List<Artista> obtenerTodos();
     public abstract int contarArtistas();
     public abstract void cerrarSesion();
+    public abstract void crearTablas();
 }

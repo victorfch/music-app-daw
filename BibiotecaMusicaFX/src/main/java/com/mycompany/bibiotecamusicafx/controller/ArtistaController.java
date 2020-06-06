@@ -136,7 +136,6 @@ public class ArtistaController implements Initializable {
     @FXML
     private void buscarPorFiltro(ActionEvent event) {
         HashMap<String, String> filtro = new HashMap<>();
-
         if (!nombre.getText().isEmpty()) {
             filtro.put("nombre", nombre.getText());
         }

@@ -146,7 +146,6 @@ public class ArtistaServicioMySQL implements ArtistaServicio {
     @Override
     public ArrayList<Artista> buscarConFiltro(Map filtro) {
         ArrayList<Artista> artistas = new ArrayList<>();
-        
         String nombre = (String) filtro.get("nombre");
         String nacionalidad = (String) filtro.get("nacionalidad");
         String sql = "SELECT * FROM artista WHERE";
@@ -185,5 +184,37 @@ public class ArtistaServicioMySQL implements ArtistaServicio {
             Logger.getLogger(ArtistaServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
         }
         return artistas;
+    }
+
+    @Override
+    public void crearTablas() {
+        String sqlTablaAlbum = "CREATE TABLE IF NOT EXISTS album (" +
+                " artista_id varchar(36) COLLATE utf8_spanish_ci NOT NULL," +
+                " id varchar(36) COLLATE utf8_spanish_ci NOT NULL," +
+                " titulo varchar(20) COLLATE utf8_spanish_ci NOT NULL," +
+                " genero varchar(15) COLLATE utf8_spanish_ci NOT NULL," +
+                " fecha_lanzamiento date NOT NULL," +
+                " UNIQUE KEY id (id)," +
+                " KEY artista_id (artista_id) USING BTREE," +
+                " CONSTRAINT album_ibfk_1 FOREIGN KEY (artista_id)" +
+                " REFERENCES artista (id) ON DELETE CASCADE ON UPDATE CASCADE" +
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci";
+        
+        String sqlTablaArtista = "CREATE TABLE IF NOT EXISTS artista (" +
+                " id varchar(36) COLLATE utf8_spanish_ci NOT NULL," +
+                " nombre varchar(20) COLLATE utf8_spanish_ci NOT NULL," +
+                " nacionalidad varchar(20) COLLATE utf8_spanish_ci NOT NULL," +
+                " fecha_nacimiento date NOT NULL," +
+                " PRIMARY KEY (`id`)" +
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci";
+                
+        Statement sentencia;
+        try {
+            sentencia = conexion.createStatement();
+            sentencia.execute(sqlTablaArtista);
+            sentencia.execute(sqlTablaAlbum);
+        } catch (SQLException ex) {
+            Logger.getLogger(ArtistaServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -1,16 +1,13 @@
 package com.mycompany.bibiotecamusicafx.servicio;
 
 import com.mycompany.bibiotecamusicafx.model.Album;
-import com.mycompany.bibiotecamusicafx.model.Artista;
 import com.mycompany.bibiotecamusicafx.model.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -46,13 +43,20 @@ public class AlbumServicioMySQL implements AlbumServicio {
             stmt.setDate(5, album.getFechaLanzamiento());
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(ArtistaServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AlbumServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
     public void eliminar(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String sqlEliminar = "DELETE FROM album WHERE id LIKE ?";
+            PreparedStatement stmt = conexion.prepareStatement(sqlEliminar);
+            stmt.setString(1, id);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AlbumServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -62,7 +66,44 @@ public class AlbumServicioMySQL implements AlbumServicio {
 
     @Override
     public List<Album> buscarConFiltro(Map filtro) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Album> albumes = new ArrayList<>();
+        String nombre = (String) filtro.get("nombre");
+        String genero = (String) filtro.get("genero");
+        String sql = "SELECT * FROM album WHERE";
+        if (nombre != null) {
+            sql += " titulo LIKE ?";
+            if (genero != null) {
+                sql += " AND genero LIKE ?";
+            }
+        } else {
+            sql += " genero LIKE ?";
+        }
+        
+        Album album = null;
+        PreparedStatement stmt;
+        try {
+            stmt = conexion.prepareStatement(sql);
+            if (nombre != null) {
+                stmt.setString(1, nombre);
+                if (genero != null) {
+                    stmt.setString(2, genero);
+                }
+            } else {
+                stmt.setString(1, genero);
+            }
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                albumes.add(new Album(
+                        rs.getString("album.artista_id"),
+                        rs.getString("album.titulo"),
+                        rs.getString("album.genero"),
+                        rs.getDate("album.fecha_lanzamiento").toLocalDate(),
+                        rs.getString("album.id")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AlbumServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return albumes;
     }
 
     @Override
@@ -71,29 +112,24 @@ public class AlbumServicioMySQL implements AlbumServicio {
     }
 
     @Override
-    public HashMap<String, Album> obtenerTodos() {
-        HashMap<String, Album> albums = new HashMap<>();
+    public List<Album> obtenerTodos() {
         ArrayList<Album> albumes = new ArrayList<>();
-        String sqlGetAll = "SELECT artista.nombre, album.artista_id, album.id, "
-                + "album.titulo, album.genero, album.fecha_lanzamiento"
-                + " FROM album INNER JOIN artista ON artista.id = album.artista_id";
+        String sqlGetAll = "SELECT * FROM album";
         Statement stmt;
         try {
             stmt = conexion.createStatement();
-            ResultSet resultado = stmt.executeQuery(sqlGetAll);
-            while (resultado.next()) {
-                String artistaId = resultado.getString("album.artista_id");
-                String id = resultado.getString("album.id");
-                String titulo = resultado.getString("album.titulo");
-                String genero = resultado.getString("album.genero");
-                LocalDate fecha = resultado.getDate("album.fecha_lanzamiento").toLocalDate();
-                albums.put(resultado.getString("artista.nombre"), new Album(artistaId, titulo, genero, fecha, id));
-                //albumes.add(new Album(artistaId, titulo, genero, fecha, id));
+            ResultSet rs = stmt.executeQuery(sqlGetAll);
+            while (rs.next()) {
+                albumes.add(new Album(rs.getString("artista_id"),
+                        rs.getString("titulo"),
+                        rs.getString("genero"),
+                        rs.getDate("fecha_lanzamiento").toLocalDate(),
+                        rs.getString("id")));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ArtistaServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AlbumServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return albums;
+        return albumes;
     }
 
     @Override
@@ -106,7 +142,7 @@ public class AlbumServicioMySQL implements AlbumServicio {
         try {
             conexion.close();
         } catch (SQLException ex) {
-            Logger.getLogger(ArtistaServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AlbumServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

@@ -9,7 +9,8 @@ import com.mycompany.bibiotecamusicafx.utility.VentanasYControladores;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -69,9 +70,23 @@ public class AlbumController implements Initializable {
 
     @FXML
     private void buscarPorFiltro(ActionEvent event) {
+        HashMap<String, String> filtro = new HashMap<>();
+
+        if (!nombre.getText().isEmpty()) {
+            filtro.put("nombre", nombre.getText());
+        }
+        if (!genero.getText().isEmpty()) {
+            filtro.put("genero", genero.getText());
+        }
+        if (filtro.size() > 0) {
+            List<Album> albumesFiltrados = servicioAlbumes.buscarConFiltro(filtro);
+            actualizarPanel(albumesFiltrados);
+        } else {
+            actualizarPanel(servicioAlbumes.obtenerTodos());
+        }
     }
 
-    public void actualizarPanel(Map<String, Album> albumes) {
+    public void actualizarPanel(List<Album> albumes) {
         if (albumes.isEmpty()) {
             contenedorAlbums.setContent(null);
             Label warning = new Label(Constantes.MSG_NO_HAY_ALBUMES);
@@ -84,31 +99,30 @@ public class AlbumController implements Initializable {
             cuadricula.setVgap(10);
             cuadricula.setPadding(new Insets(5, 0, 0, 10));
             int contador = 1;
-            Label etiquetaNombreArtista = new Label("Artista");
             Label etiquetaTitulo = new Label("Titulo");
             Label etiquetaGenero = new Label("Género");
             Label etiquetaFecha = new Label("Fecha");
             Label etiquetaAcciones = new Label();
-            cuadricula.add(etiquetaNombreArtista, 0, 0);
-            cuadricula.add(etiquetaTitulo, 1, 0);
-            cuadricula.add(etiquetaGenero, 2, 0);
-            cuadricula.add(etiquetaFecha, 3, 0);
-            cuadricula.add(etiquetaAcciones, 4, 0);
-
-            for (Map.Entry<String, Album> entry : albumes.entrySet()) {
-                Label nombreArtista = new Label(entry.getKey());
-                Label titulo = new Label(entry.getValue().getTitulo());
-                Label genero = new Label(entry.getValue().getGenero());
-                Label fecha = new Label(entry.getValue().getFechaLanzamiento().toString());
+            cuadricula.add(etiquetaTitulo, 0, 0);
+            cuadricula.add(etiquetaGenero, 1, 0);
+            cuadricula.add(etiquetaFecha, 2, 0);
+            cuadricula.add(etiquetaAcciones, 3, 0);
+            for (Album album : albumes) {
+                Label titulo = new Label(album.getTitulo());
+                Label genero = new Label(album.getGenero());
+                Label fecha = new Label(album.getFechaLanzamiento().toString());
                 MenuItem menuItem1 = new MenuItem("Editar");
                 MenuItem menuItem2 = new MenuItem("Eliminar");
                 MenuItem menuItem3 = new MenuItem("Ver");
                 MenuButton menuButton = new MenuButton("Acciones", null, menuItem1, menuItem2, menuItem3);
-                cuadricula.add(nombreArtista, 0, contador);
-                cuadricula.add(titulo, 1, contador);
-                cuadricula.add(genero, 2, contador);
-                cuadricula.add(fecha, 3, contador);
-                cuadricula.add(menuButton, 4, contador);
+                menuItem2.setOnAction((ActionEvent event) -> {
+                    servicioAlbumes.eliminar(album.getId());
+                    actualizarPanel(servicioAlbumes.obtenerTodos());
+                });
+                cuadricula.add(titulo, 0, contador);
+                cuadricula.add(genero, 1, contador);
+                cuadricula.add(fecha, 2, contador);
+                cuadricula.add(menuButton, 3, contador);
                 contador++;   
             }
             contenedorAlbums.setContent(cuadricula);
