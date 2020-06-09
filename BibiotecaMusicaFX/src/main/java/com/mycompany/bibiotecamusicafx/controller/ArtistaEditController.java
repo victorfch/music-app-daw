@@ -6,6 +6,7 @@ import com.mycompany.bibiotecamusicafx.servicio.ArtistaServicioMySQL;
 import com.mycompany.bibiotecamusicafx.utility.Constantes;
 import com.mycompany.bibiotecamusicafx.utility.VentanasYControladores;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -46,7 +47,7 @@ public class ArtistaEditController implements Initializable {
 
         if (!nombre.isEmpty() && !nacionalidad.isEmpty() && (fechaNacimiento.getValue() != null)) {
             if (id.getText().isEmpty()) {
-                Artista artista = new Artista(nombre, nacionalidad, fechaNacimiento.getValue(), null);
+                Artista artista = new Artista(nombre, nacionalidad, Date.valueOf(fechaNacimiento.getValue()), null);
                 servicioArtistas.guardar(artista);
                 ArtistaController controlador = (ArtistaController) VentanasYControladores.getControlador("artista");
                 controlador.actualizarPanel(servicioArtistas.obtenerTodos());
@@ -68,14 +69,14 @@ public class ArtistaEditController implements Initializable {
         id.setText(artista.getId());
         nombre.setText(artista.getNombre());
         nacionalidad.setText(artista.getNacionalidad());
-        fechaNacimiento.setValue(artista.getFechaNacimiento());
+        fechaNacimiento.setValue(artista.getFechaNacimientoLocalDate());
     }
 
     public void editar() {
         Artista artista = servicioArtistas.getArtista(id.getText());
         artista.setNombre(this.nombre.getText().trim());
         artista.setNacionalidad(this.nacionalidad.getText().trim());
-        artista.setFechaNacimiento(this.fechaNacimiento.getValue());
+        artista.setFechaNacimiento(Date.valueOf(this.fechaNacimiento.getValue()));
         servicioArtistas.editar(artista);
         ArtistaController controlador = (ArtistaController) VentanasYControladores.getControlador("artista");
         controlador.actualizarPanel(servicioArtistas.obtenerTodos());

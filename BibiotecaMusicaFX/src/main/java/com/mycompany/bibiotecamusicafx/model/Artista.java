@@ -1,19 +1,28 @@
 package com.mycompany.bibiotecamusicafx.model;
 
+import com.mycompany.bibiotecamusicafx.utility.AdaptadorFecha;
 import com.mycompany.bibiotecamusicafx.utility.Constantes;
 import java.time.LocalDate;
 import java.time.Period;
 import java.sql.Date;
 import java.util.UUID;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Artista implements Comparable<Artista> {
 
     private String id;
     private String nombre;
     private String nacionalidad;
-    private Date fechaNacimiento;
 
-    public Artista(String nombre, String nacionalidad, LocalDate fechaNacimiento, String id) {
+    @XmlJavaTypeAdapter(AdaptadorFecha.class)
+    private Date fechaNacimiento;
+    
+    public Artista() {}
+
+    public Artista(String nombre, String nacionalidad, Date fechaNacimiento, String id) {
         if (id == null) {
             this.id = UUID.randomUUID().toString();
         } else {
@@ -21,11 +30,15 @@ public class Artista implements Comparable<Artista> {
         }
         this.nombre = nombre;
         this.nacionalidad = nacionalidad;
-        this.fechaNacimiento = Date.valueOf(fechaNacimiento);
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -49,19 +62,19 @@ public class Artista implements Comparable<Artista> {
         LocalDate hoy = LocalDate.now();
         return Period.between(fechaNacimientoLocalDate, hoy).getYears();
     }
-    
-    public Date getFechaNacimientoDate() {
+
+    public LocalDate getFechaNacimientoLocalDate() {
+        return fechaNacimiento.toLocalDate();
+    }
+
+    public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public LocalDate getFechaNacimiento() {
-        return fechaNacimiento.toLocalDate();
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
-    
-    public void setFechaNacimiento(LocalDate fechaNacimiento) {
-        this.fechaNacimiento = Date.valueOf(fechaNacimiento);
-    }
-    
+
     @Override
     public String toString() {
         return this.nombre + Constantes.GUION + this.nacionalidad + Constantes.GUION + getEdad();

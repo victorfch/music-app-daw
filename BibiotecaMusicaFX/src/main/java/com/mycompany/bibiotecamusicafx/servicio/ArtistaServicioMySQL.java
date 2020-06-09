@@ -3,11 +3,11 @@ package com.mycompany.bibiotecamusicafx.servicio;
 import com.mycompany.bibiotecamusicafx.model.Artista;
 import com.mycompany.bibiotecamusicafx.model.Conexion;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.logging.Level;
@@ -28,7 +28,7 @@ public class ArtistaServicioMySQL implements ArtistaServicio {
             stmt.setString(1, artista.getId());
             stmt.setString(2, artista.getNombre());
             stmt.setString(3, artista.getNacionalidad());
-            stmt.setDate(4, artista.getFechaNacimientoDate());
+            stmt.setDate(4, artista.getFechaNacimiento());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ArtistaServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
@@ -58,7 +58,7 @@ public class ArtistaServicioMySQL implements ArtistaServicio {
             PreparedStatement stmt = conexion.prepareStatement(sqlEditar);
             stmt.setString(1, artista.getNombre());
             stmt.setString(2, artista.getNacionalidad());
-            stmt.setDate(3, artista.getFechaNacimientoDate());
+            stmt.setDate(3, artista.getFechaNacimiento());
             stmt.setString(4, artista.getId());
             stmt.executeUpdate();
         } catch (SQLException ex) {
@@ -78,7 +78,7 @@ public class ArtistaServicioMySQL implements ArtistaServicio {
                 String id = resultado.getString("id");
                 String nombre = resultado.getString("nombre");
                 String nacionalidad = resultado.getString("nacionalidad");
-                LocalDate fecha = resultado.getDate("fecha_nacimiento").toLocalDate();
+                Date fecha = resultado.getDate("fecha_nacimiento");
                 artistas.add(new Artista(nombre, nacionalidad, fecha, id));
             }
         } catch (SQLException ex) {
@@ -115,7 +115,7 @@ public class ArtistaServicioMySQL implements ArtistaServicio {
                 artista = new Artista(
                         rs.getString("nombre"),
                         rs.getString("nacionalidad"),
-                        rs.getDate("fecha_nacimiento").toLocalDate(),
+                        rs.getDate("fecha_nacimiento"),
                         id);
             }
         } catch (SQLException ex) {
@@ -175,7 +175,7 @@ public class ArtistaServicioMySQL implements ArtistaServicio {
                 artista = new Artista(
                         rs.getString("nombre"),
                         rs.getString("nacionalidad"),
-                        rs.getDate("fecha_nacimiento").toLocalDate(),
+                        rs.getDate("fecha_nacimiento"),
                         rs.getString("id")
                 );
                 artistas.add(artista);

@@ -2,9 +2,11 @@ package com.mycompany.bibiotecamusicafx.controller;
 
 import com.mycompany.bibiotecamusicafx.utility.Constantes;
 import com.mycompany.bibiotecamusicafx.model.Artista;
+import com.mycompany.bibiotecamusicafx.model.ArtistasWrapper;
 import com.mycompany.bibiotecamusicafx.servicio.ArtistaServicio;
 import com.mycompany.bibiotecamusicafx.servicio.ArtistaServicioMySQL;
 import com.mycompany.bibiotecamusicafx.utility.VentanasYControladores;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -28,8 +30,13 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 public class ArtistaController implements Initializable {
 
@@ -148,6 +155,20 @@ public class ArtistaController implements Initializable {
         } else {
             actualizarPanel(servicioArtistas.obtenerTodos());
         }
+    }
+
+    @FXML
+    private void importar(ActionEvent event) throws JAXBException {
+        FileChooser fileChooser = new FileChooser();
+        File fichero = fileChooser.showOpenDialog(VentanasYControladores.getVentana("principal"));
+
+        JAXBContext jaxbContext = JAXBContext.newInstance(ArtistasWrapper.class);
+        Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+        ArtistasWrapper aw = (ArtistasWrapper) unmarshaller.unmarshal(fichero);
+        for (Artista artista : aw.getArtistas()) {
+            servicioArtistas.guardar(artista);
+        }
+        actualizarPanel(servicioArtistas.obtenerTodos());
     }
 
 }
