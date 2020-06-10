@@ -63,10 +63,6 @@ public class Artista implements Comparable<Artista> {
         return Period.between(fechaNacimientoLocalDate, hoy).getYears();
     }
 
-    public LocalDate getFechaNacimientoLocalDate() {
-        return fechaNacimiento.toLocalDate();
-    }
-
     public Date getFechaNacimiento() {
         return fechaNacimiento;
     }

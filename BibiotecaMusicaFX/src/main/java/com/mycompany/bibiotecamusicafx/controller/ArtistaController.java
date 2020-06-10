@@ -35,7 +35,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 public class ArtistaController implements Initializable {
@@ -106,11 +105,11 @@ public class ArtistaController implements Initializable {
                 menuItem1.setOnAction((ActionEvent event) -> {
                     Parent root = null;
                     try {
-                        FXMLLoader loader = new FXMLLoader(ArtistaController.this.getClass().getResource(Constantes.VISTA_ARTISTA_EDIT));
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource(Constantes.VISTA_ARTISTA_EDIT));
                         root = (Parent) loader.load();
                         Scene scene = new Scene(root);
-                        ArtistaEditController editarControlador = (ArtistaEditController) VentanasYControladores.getControlador("artista-editar");
-                        editarControlador.iniciarDatos(artista);
+                        ArtistaEditController artistaEditController = (ArtistaEditController) VentanasYControladores.getControlador("artista-editar");
+                        artistaEditController.iniciarDatos(artista);
                         scene.getStylesheets().add("/styles/Styles.css");
                         Stage ventana = new Stage();
                         ventana.setTitle("ARTISTA");
@@ -128,7 +127,25 @@ public class ArtistaController implements Initializable {
                     actualizarPanel(servicioArtistas.obtenerTodos());
                 });
                 menuItem3.setOnAction((ActionEvent event) -> {
-                    System.out.println("Ver");
+                    Parent root = null;
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource(Constantes.VISTA_ARTISTA_VER));
+                        root = (Parent) loader.load();
+                        Scene scene = new Scene(root);
+                        ArtistaVerController artistaVerController = (ArtistaVerController) VentanasYControladores.getControlador("artista-ver");
+                        artistaVerController.iniciarDatos(artista);
+                        scene.getStylesheets().add("/styles/Styles.css");
+                        Stage ventana = new Stage();
+                        ventana.setTitle("ARTISTA");
+                        ventana.setScene(scene);
+                        VentanasYControladores.anhadirVentana("artista-ver", ventana);
+                        ventana.initOwner(VentanasYControladores.getVentana("principal"));
+                        ventana.initModality(Modality.WINDOW_MODAL);
+                        ventana.showAndWait();
+
+                    } catch (IOException ex) {
+                        Logger.getLogger(ArtistaController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 });
                 cuadricula.add(nombre, 0, contador);
                 cuadricula.add(nacionalidad, 1, contador);

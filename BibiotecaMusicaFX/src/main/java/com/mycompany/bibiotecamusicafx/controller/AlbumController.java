@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -115,6 +117,26 @@ public class AlbumController implements Initializable {
                 MenuItem menuItem2 = new MenuItem("Eliminar");
                 MenuItem menuItem3 = new MenuItem("Ver");
                 MenuButton menuButton = new MenuButton("Acciones", null, menuItem1, menuItem2, menuItem3);
+                menuItem1.setOnAction((ActionEvent event) -> {
+                    Parent root = null;
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource(Constantes.VISTA_ALBUM_EDIT));
+                        root = (Parent) loader.load();
+                        Scene scene = new Scene(root);
+                        AlbumEditController albumEditController = (AlbumEditController) VentanasYControladores.getControlador("album-editar");
+                        albumEditController.iniciarDatos(album);
+                        scene.getStylesheets().add("/styles/Styles.css");
+                        Stage ventana = new Stage();
+                        ventana.setTitle("ALBUM");
+                        ventana.setScene(scene);
+                        VentanasYControladores.anhadirVentana("album-editar", ventana);
+                        ventana.initOwner(VentanasYControladores.getVentana("principal"));
+                        ventana.initModality(Modality.WINDOW_MODAL);
+                        ventana.showAndWait();
+                    } catch (IOException ex) {
+                        Logger.getLogger(AlbumController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                });
                 menuItem2.setOnAction((ActionEvent event) -> {
                     servicioAlbumes.eliminar(album.getId());
                     actualizarPanel(servicioAlbumes.obtenerTodos());
@@ -123,7 +145,7 @@ public class AlbumController implements Initializable {
                 cuadricula.add(genero, 1, contador);
                 cuadricula.add(fecha, 2, contador);
                 cuadricula.add(menuButton, 3, contador);
-                contador++;   
+                contador++;
             }
             contenedorAlbums.setContent(cuadricula);
         }

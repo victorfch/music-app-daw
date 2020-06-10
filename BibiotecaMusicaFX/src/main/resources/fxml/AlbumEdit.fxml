@@ -35,6 +35,8 @@
                   <Font size="14.0" />
                </font>
             </Label>
+            <Button layoutX="365.0" layoutY="266.0" mnemonicParsing="false" onAction="#guardar" text="Guardar" />
+            <Button layoutX="449.0" layoutY="266.0" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
             <AnchorPane fx:id="panelNoHayArtistas" layoutX="17.0" layoutY="265.0" prefHeight="60.0" prefWidth="171.0">
                <children>
                   <Label layoutX="14.0" layoutY="30.0" text="No hay artistas guardados" textFill="#f53434">
@@ -44,13 +46,7 @@
                   </Label>
                </children>
             </AnchorPane>
-            <Button layoutX="365.0" layoutY="266.0" mnemonicParsing="false" onAction="#guardar" text="Guardar" />
-            <Button layoutX="449.0" layoutY="266.0" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
-            <Label fx:id="warning" layoutX="88.0" layoutY="233.0" textFill="#f53434">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
+            <TextField fx:id="id" disable="true" editable="false" layoutX="194.0" layoutY="201.0" opacity="0.0" prefHeight="27.0" prefWidth="124.0" />
          </children>
       </AnchorPane>
    </children>

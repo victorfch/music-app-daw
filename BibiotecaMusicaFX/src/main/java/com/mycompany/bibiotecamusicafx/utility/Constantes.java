@@ -9,6 +9,7 @@ public class Constantes {
     public static final String VISTA_MENU = "/fxml/Menu.fxml";
     public static final String VISTA_CANCIONES = "/fxml/Cancion.fxml";
     public static final String VISTA_ARTISTA_EDIT = "/fxml/ArtistaEdit.fxml";
+    public static final String VISTA_ARTISTA_VER = "/fxml/ArtistaVer.fxml";
     public static final String VISTA_ALBUM_EDIT = "/fxml/AlbumEdit.fxml";
     public static final String VISTA_ALBUMES = "/fxml/Album.fxml";
     public static final String GUION = "-";

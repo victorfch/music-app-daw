@@ -61,7 +61,23 @@ public class AlbumServicioMySQL implements AlbumServicio {
 
     @Override
     public void editar(Album album) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            String sqlEditar = "UPDATE album "
+                    + "SET titulo = ?,"
+                    + " artista_id = ?,"
+                    + " genero = ?,"
+                    + " fecha_lanzamiento = ? "
+                    + "WHERE id LIKE ?";
+            PreparedStatement stmt = conexion.prepareStatement(sqlEditar);
+            stmt.setString(1, album.getTitulo());
+            stmt.setString(2, album.getArtistaId());
+            stmt.setString(3, album.getGenero());
+            stmt.setDate(4, album.getFechaLanzamiento());
+            stmt.setString(5, album.getId());
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ArtistaServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -97,7 +113,7 @@ public class AlbumServicioMySQL implements AlbumServicio {
                         rs.getString("album.artista_id"),
                         rs.getString("album.titulo"),
                         rs.getString("album.genero"),
-                        rs.getDate("album.fecha_lanzamiento").toLocalDate(),
+                        rs.getDate("album.fecha_lanzamiento"),
                         rs.getString("album.id")));
             }
         } catch (SQLException ex) {
@@ -108,7 +124,25 @@ public class AlbumServicioMySQL implements AlbumServicio {
 
     @Override
     public Album getAlbum(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String sqlGetAlbum = "SELECT * FROM album WHERE id LIKE ?";
+        Album album = null;
+        PreparedStatement stmt;
+        try {
+            stmt = conexion.prepareStatement(sqlGetAlbum);
+            stmt.setString(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                album = new Album(
+                        rs.getString("artista_id"),
+                        rs.getString("titulo"),
+                        rs.getString("genero"),
+                        rs.getDate("fecha_lanzamiento"),
+                        id);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ArtistaServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return album;
     }
 
     @Override
@@ -123,7 +157,7 @@ public class AlbumServicioMySQL implements AlbumServicio {
                 albumes.add(new Album(rs.getString("artista_id"),
                         rs.getString("titulo"),
                         rs.getString("genero"),
-                        rs.getDate("fecha_lanzamiento").toLocalDate(),
+                        rs.getDate("fecha_lanzamiento"),
                         rs.getString("id")));
             }
         } catch (SQLException ex) {

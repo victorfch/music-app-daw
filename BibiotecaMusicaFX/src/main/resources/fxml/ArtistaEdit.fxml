@@ -29,11 +29,6 @@
       <DatePicker fx:id="fechaNacimiento" layoutX="179.0" layoutY="155.0" promptText="dd/mm/yyyy" />
       <Button layoutX="314.0" layoutY="262.0" mnemonicParsing="false" onAction="#guardar" prefHeight="27.0" prefWidth="64.0" text="Guardar" />
       <Button layoutX="403.0" layoutY="262.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="27.0" prefWidth="77.0" text="Cancelar" />
-      <Label fx:id="alerta" layoutX="62.0" layoutY="216.0" textFill="#f53434">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <TextField fx:id="id" editable="false" layoutX="179.0" layoutY="32.0" opacity="0.0" prefHeight="27.0" prefWidth="161.0" />
+      <TextField fx:id="id" disable="true" editable="false" layoutX="179.0" layoutY="32.0" opacity="0.0" prefHeight="27.0" prefWidth="161.0" />
    </children>
 </AnchorPane>
