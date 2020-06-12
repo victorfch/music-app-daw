@@ -1,11 +1,13 @@
 package com.mycompany.bibiotecamusicafx.controller;
 
 import com.mycompany.bibiotecamusicafx.model.Album;
+import com.mycompany.bibiotecamusicafx.model.AlbumesWrapper;
 import com.mycompany.bibiotecamusicafx.servicio.AlbumServicio;
 import com.mycompany.bibiotecamusicafx.servicio.AlbumServicioMySQL;
 import com.mycompany.bibiotecamusicafx.servicio.ArtistaServicio;
 import com.mycompany.bibiotecamusicafx.utility.Constantes;
 import com.mycompany.bibiotecamusicafx.utility.VentanasYControladores;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -30,6 +32,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 
 public class AlbumController implements Initializable {
 
@@ -151,4 +156,14 @@ public class AlbumController implements Initializable {
         }
     }
 
+    @FXML
+    private void exportar(ActionEvent event) throws JAXBException {
+        AlbumesWrapper albumesWrapper = new AlbumesWrapper();
+        albumesWrapper.setAlbumes(servicioAlbumes.obtenerTodos());
+        JAXBContext jaxbContext = JAXBContext.newInstance(AlbumesWrapper.class);
+        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        jaxbMarshaller.marshal(albumesWrapper, new File("albumes.xml"));
+        jaxbMarshaller.marshal(albumesWrapper, System.out);
+    }
 }

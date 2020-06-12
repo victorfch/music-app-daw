@@ -1,12 +1,19 @@
 package com.mycompany.bibiotecamusicafx.model;
 
+import com.mycompany.bibiotecamusicafx.utility.AdaptadorFecha;
 import java.sql.Date;
 import java.util.UUID;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Album {
     private String artistaId;
     private String titulo;
     private String genero;
+    
+    @XmlJavaTypeAdapter(AdaptadorFecha.class)
     private Date fechaLanzamiento;
     private String id;
 

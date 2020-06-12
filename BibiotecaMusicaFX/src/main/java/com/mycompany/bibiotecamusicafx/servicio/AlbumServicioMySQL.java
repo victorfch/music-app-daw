@@ -179,4 +179,26 @@ public class AlbumServicioMySQL implements AlbumServicio {
             Logger.getLogger(AlbumServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    @Override
+    public List<Album> getAlbumsByArtista(String artistaId) {
+        ArrayList<Album> listaAlbumes = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM album"
+                    + " WHERE artista_id LIKE ?";
+            PreparedStatement pstmt = conexion.prepareStatement(sql);
+            pstmt.setString(1, artistaId);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                listaAlbumes.add(new Album(artistaId,
+                        rs.getString("titulo"),
+                        rs.getString("genero"),
+                        rs.getDate("fecha_lanzamiento"),
+                        rs.getString("id")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AlbumServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return listaAlbumes;
+    }
 }
