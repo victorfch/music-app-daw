@@ -108,7 +108,7 @@ public class AlbumEditController implements Initializable {
                 editar();
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Cuidado");
             alert.setHeaderText(null);
             alert.setContentText(msg);

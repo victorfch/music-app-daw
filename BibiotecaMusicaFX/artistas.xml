@@ -2,19 +2,19 @@
 <artistas>
     <artista>
         <id>0d50e51c-2c9b-4d1f-b72e-85f8e3bc60bc</id>
-        <nombre>ed sheeran</nombre>
+        <nombre>Ed Sheeran</nombre>
         <nacionalidad>GBR</nacionalidad>
         <fechaNacimiento>1991-02-17</fechaNacimiento>
     </artista>
     <artista>
         <id>9815de84-ff41-497f-aebd-5fb13dc159b0</id>
-        <nombre>shakira</nombre>
+        <nombre>Shakira</nombre>
         <nacionalidad>COL</nacionalidad>
         <fechaNacimiento>1977-02-02</fechaNacimiento>
     </artista>
     <artista>
         <id>cd1504c4-72a8-43ab-b7ce-6dcf880bfe31</id>
-        <nombre>linkin park</nombre>
+        <nombre>Linkin Park</nombre>
         <nacionalidad>USA</nacionalidad>
         <fechaNacimiento>1996-05-03</fechaNacimiento>
     </artista>

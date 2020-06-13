@@ -1,32 +1,33 @@
 package com.mycompany.bibiotecamusicafx.model;
 
-public class Cancion {
-    private final String nombre;
-    private final String artista;
-    private final String genero;
-    private final String letra;
+import java.sql.Blob;
 
-    public Cancion(String nombre, String artista, String genero, String letra) {
-        this.nombre = nombre;
-        this.artista = artista;
-        this.genero = genero;
+public class Cancion {
+    private final String titulo;
+    private final String idArtista;
+    private final String idAlbum;
+    private final Blob letra;
+
+    public Cancion(String titulo, String idArtista, String idAlbum, Blob letra) {
+        this.titulo = titulo;
+        this.idArtista = idArtista;
+        this.idAlbum = idAlbum;
         this.letra = letra;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public String getArtista() {
-        return artista;
+    public String getIdArtista() {
+        return idArtista;
     }
 
-    public String getLetra() {
-        return letra;
-    }
-
-    public String getGenero() {
-        return genero;
+    public String getIdAlbum() {
+        return idAlbum;
     }
     
+    public Blob getLetra() {
+        return letra;
+    }
 }

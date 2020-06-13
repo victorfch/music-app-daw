@@ -7,7 +7,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="525.0" prefWidth="641.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.bibiotecamusicafx.controller.MenuController">
     <children>
-        <MenuBar fx:id="menuBar" layoutY="-1.0" prefHeight="34.0" prefWidth="664.0">
+        <MenuBar fx:id="menuBar" layoutY="-1.0" prefHeight="30.0" prefWidth="664.0">
         <menus>
             <Menu mnemonicParsing="false" text="Opciones">
                <items>

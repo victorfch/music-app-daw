@@ -66,7 +66,7 @@ public class ArtistaEditController implements Initializable {
                 editar();
             }
         } else {
-            Alert alert = new Alert(AlertType.INFORMATION);
+            Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("Cuidado");
             alert.setHeaderText(null);
             alert.setContentText(msg);

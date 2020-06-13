@@ -23,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -120,8 +121,7 @@ public class AlbumController implements Initializable {
                 Label fecha = new Label(album.getFechaLanzamiento().toString());
                 MenuItem menuItem1 = new MenuItem("Editar");
                 MenuItem menuItem2 = new MenuItem("Eliminar");
-                MenuItem menuItem3 = new MenuItem("Ver");
-                MenuButton menuButton = new MenuButton("Acciones", null, menuItem1, menuItem2, menuItem3);
+                MenuButton menuButton = new MenuButton("Acciones", null, menuItem1, menuItem2);
                 menuItem1.setOnAction((ActionEvent event) -> {
                     Parent root = null;
                     try {
@@ -158,12 +158,20 @@ public class AlbumController implements Initializable {
 
     @FXML
     private void exportar(ActionEvent event) throws JAXBException {
-        AlbumesWrapper albumesWrapper = new AlbumesWrapper();
-        albumesWrapper.setAlbumes(servicioAlbumes.obtenerTodos());
-        JAXBContext jaxbContext = JAXBContext.newInstance(AlbumesWrapper.class);
-        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        jaxbMarshaller.marshal(albumesWrapper, new File("albumes.xml"));
-        jaxbMarshaller.marshal(albumesWrapper, System.out);
+        List<Album> listaAlbumes = servicioAlbumes.obtenerTodos();
+        if (listaAlbumes.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error!");
+            alert.setHeaderText(null);
+            alert.setContentText("No hay albumes guardados");
+            alert.showAndWait();
+        } else {
+            AlbumesWrapper albumesWrapper = new AlbumesWrapper();
+            albumesWrapper.setAlbumes(listaAlbumes);
+            JAXBContext jaxbContext = JAXBContext.newInstance(AlbumesWrapper.class);
+            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            jaxbMarshaller.marshal(albumesWrapper, new File("albumes.xml"));
+        }
     }
 }

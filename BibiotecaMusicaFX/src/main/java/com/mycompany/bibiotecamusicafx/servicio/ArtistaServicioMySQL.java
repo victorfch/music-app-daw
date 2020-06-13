@@ -2,6 +2,7 @@ package com.mycompany.bibiotecamusicafx.servicio;
 
 import com.mycompany.bibiotecamusicafx.model.Artista;
 import com.mycompany.bibiotecamusicafx.model.Conexion;
+import com.mycompany.bibiotecamusicafx.servicio.ArtistaServicio;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -14,12 +15,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ArtistaServicioMySQL implements ArtistaServicio {
-    
+
     private static Connection conexion;
     private static ArtistaServicioMySQL instancia;
-    
-    private ArtistaServicioMySQL() {}
-    
+
+    private ArtistaServicioMySQL() {
+    }
+
     @Override
     public void guardar(Artista artista) {
         try {
@@ -34,7 +36,7 @@ public class ArtistaServicioMySQL implements ArtistaServicio {
             Logger.getLogger(ArtistaServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Override
     public void eliminar(String id) {
         try {
@@ -46,7 +48,7 @@ public class ArtistaServicioMySQL implements ArtistaServicio {
             Logger.getLogger(ArtistaServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Override
     public void editar(Artista artista) {
         try {
@@ -65,7 +67,7 @@ public class ArtistaServicioMySQL implements ArtistaServicio {
             Logger.getLogger(ArtistaServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Override
     public ArrayList<Artista> obtenerTodos() {
         ArrayList<Artista> artistas = new ArrayList<>();
@@ -86,7 +88,7 @@ public class ArtistaServicioMySQL implements ArtistaServicio {
         }
         return artistas;
     }
-    
+
     @Override
     public int contarArtistas() {
         int contador = 0;
@@ -101,7 +103,7 @@ public class ArtistaServicioMySQL implements ArtistaServicio {
         }
         return contador;
     }
-    
+
     @Override
     public Artista getArtista(String id) {
         String sqlGetArtista = "SELECT * FROM artista WHERE id LIKE ?";
@@ -123,7 +125,7 @@ public class ArtistaServicioMySQL implements ArtistaServicio {
         }
         return artista;
     }
-    
+
     @Override
     public void cerrarSesion() {
         try {
@@ -132,7 +134,7 @@ public class ArtistaServicioMySQL implements ArtistaServicio {
             Logger.getLogger(ArtistaServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public static ArtistaServicio getServicioMySQL() throws SQLException {
         if (conexion == null) {
             conexion = Conexion.getConexion();
@@ -142,7 +144,7 @@ public class ArtistaServicioMySQL implements ArtistaServicio {
         }
         return instancia;
     }
-    
+
     @Override
     public ArrayList<Artista> buscarConFiltro(Map filtro) {
         ArrayList<Artista> artistas = new ArrayList<>();
@@ -157,7 +159,7 @@ public class ArtistaServicioMySQL implements ArtistaServicio {
         } else {
             sql += " nacionalidad LIKE ?";
         }
-        
+
         Artista artista = null;
         PreparedStatement stmt;
         try {
@@ -188,31 +190,45 @@ public class ArtistaServicioMySQL implements ArtistaServicio {
 
     @Override
     public void crearTablas() {
-        String sqlTablaAlbum = "CREATE TABLE IF NOT EXISTS album (" +
-                " artista_id varchar(36) COLLATE utf8_spanish_ci NOT NULL," +
-                " id varchar(36) COLLATE utf8_spanish_ci NOT NULL," +
-                " titulo varchar(20) COLLATE utf8_spanish_ci NOT NULL," +
-                " genero varchar(15) COLLATE utf8_spanish_ci NOT NULL," +
-                " fecha_lanzamiento date NOT NULL," +
-                " UNIQUE KEY id (id)," +
-                " KEY artista_id (artista_id) USING BTREE," +
-                " CONSTRAINT album_ibfk_1 FOREIGN KEY (artista_id)" +
-                " REFERENCES artista (id) ON DELETE CASCADE ON UPDATE CASCADE" +
-                ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci";
-        
-        String sqlTablaArtista = "CREATE TABLE IF NOT EXISTS artista (" +
-                " id varchar(36) COLLATE utf8_spanish_ci NOT NULL," +
-                " nombre varchar(20) COLLATE utf8_spanish_ci NOT NULL," +
-                " nacionalidad varchar(20) COLLATE utf8_spanish_ci NOT NULL," +
-                " fecha_nacimiento date NOT NULL," +
-                " PRIMARY KEY (`id`)" +
-                ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci";
-                
+        String sqlTablaCancion = "CREATE TABLE IF NOT EXISTS cancion ("
+                + "titulo varchar(20) COLLATE utf8_spanish_ci NOT NULL,"
+                + "artista_id varchar(36) COLLATE utf8_spanish_ci NOT NULL,"
+                + "album_id varchar(36) COLLATE utf8_spanish_ci NOT NULL,"
+                + "letra text COLLATE utf8_spanish_ci NOT NULL,"
+                + "KEY artista_id (artista_id),"
+                + "KEY album_id (album_id),"
+                + "CONSTRAINT cancion_ibfk_1 FOREIGN KEY (artista_id) "
+                + "REFERENCES artista (id) ON DELETE CASCADE ON UPDATE CASCADE,"
+                + "CONSTRAINT cancion_ibfk_2 FOREIGN KEY (album_id) "
+                + "REFERENCES album (id) ON DELETE CASCADE ON UPDATE CASCADE"
+                + ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci";
+
+        String sqlTablaAlbum = "CREATE TABLE IF NOT EXISTS album ("
+                + " artista_id varchar(36) COLLATE utf8_spanish_ci NOT NULL,"
+                + " id varchar(36) COLLATE utf8_spanish_ci NOT NULL,"
+                + " titulo varchar(20) COLLATE utf8_spanish_ci NOT NULL,"
+                + " genero varchar(15) COLLATE utf8_spanish_ci NOT NULL,"
+                + " fecha_lanzamiento date NOT NULL,"
+                + " UNIQUE KEY id (id),"
+                + " KEY artista_id (artista_id) USING BTREE,"
+                + " CONSTRAINT album_ibfk_1 FOREIGN KEY (artista_id)"
+                + " REFERENCES artista (id) ON DELETE CASCADE ON UPDATE CASCADE"
+                + ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci";
+
+        String sqlTablaArtista = "CREATE TABLE IF NOT EXISTS artista ("
+                + " id varchar(36) COLLATE utf8_spanish_ci NOT NULL,"
+                + " nombre varchar(20) COLLATE utf8_spanish_ci NOT NULL,"
+                + " nacionalidad varchar(20) COLLATE utf8_spanish_ci NOT NULL,"
+                + " fecha_nacimiento date NOT NULL,"
+                + " PRIMARY KEY (`id`)"
+                + ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci";
+
         Statement sentencia;
         try {
             sentencia = conexion.createStatement();
             sentencia.execute(sqlTablaArtista);
             sentencia.execute(sqlTablaAlbum);
+            sentencia.execute(sqlTablaCancion);
         } catch (SQLException ex) {
             Logger.getLogger(ArtistaServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
         }
