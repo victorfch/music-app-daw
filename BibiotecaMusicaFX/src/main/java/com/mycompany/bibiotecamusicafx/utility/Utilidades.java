@@ -19,8 +19,8 @@ public class Utilidades {
                 + "5. Eliminar artista" +  System.lineSeparator()
                 + "6. Añadir album" + System.lineSeparator()
                 + "7. Eliminar album" + System.lineSeparator()
-                + "8. Importar albums de artista con fichero" + System.lineSeparator()
-                + "9. Exportar a fichero los artistas" + System.lineSeparator()
+                + "8. Exportar a fichero los albumes" + System.lineSeparator()
+                + "9. Importar artistas de fichero" + System.lineSeparator()
                 + "10. Salir" + System.lineSeparator();
     }
 

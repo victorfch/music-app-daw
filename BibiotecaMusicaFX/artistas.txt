@@ -1,0 +1,3 @@
+Ed Sheeran;GBR;1991-02-17;0d50e51c-2c9b-4d1f-b72e-85f8e3bc60bc
+Shakira;COL;1977-02-02;9815de84-ff41-497f-aebd-5fb13dc159b0
+Linkin Park;USA;1996-05-03;cd1504c4-72a8-43ab-b7ce-6dcf880bfe31

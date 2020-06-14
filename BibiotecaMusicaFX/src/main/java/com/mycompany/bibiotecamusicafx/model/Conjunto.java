@@ -2,9 +2,10 @@ package com.mycompany.bibiotecamusicafx.model;
 
 import com.mycompany.bibiotecamusicafx.comparador.ComparadorArtistaPorEdad;
 import com.mycompany.bibiotecamusicafx.utility.Constantes;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -80,31 +81,39 @@ public class Conjunto {
         }
         return artistas;
     }
-    /**
-     * Crea un fichero llamado artistas donde se guardan todos los artistas del programa
-     */
-    public void exportarArtistasAFichero() {
-        BufferedWriter bw = null;
+
+    public void importarArtistasPorFichero() {
+        BufferedReader br = null;
         try {
-            bw = new BufferedWriter(new FileWriter("artistas"));
-            String msg = Constantes.MSG_NO_HAY_ARTISTAS;
-            if (tamReal > 0) {
-                msg = "";
-                for (int i = 0; i < tamReal; i++) {
-                    msg = msg.concat(artistas[i].toString() + System.lineSeparator());
+            br = new BufferedReader(new FileReader("artistas.txt"));
+            String linea;
+            String nombre;
+            String nacionalidad;
+            Date fecha;
+            String id;
+            String[] partes;
+            while ((linea = br.readLine()) != null) {
+                if (sePuedeGuardar()) {
+                    partes = linea.split(";");
+                    nombre = partes[0].trim();
+                    nacionalidad = partes[1].trim();
+                    fecha = Date.valueOf(partes[2].trim());
+                    id = partes[3].trim();
+                    guardar(new Artista(nombre, nacionalidad, fecha, id));
                 }
-                bw.write(msg);
-            }   
+            }
         } catch (IOException ex) {
-            Logger.getLogger(Conjunto.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Artista.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
-                if (bw != null) {
-                    bw.close();
+                if (br != null) {
+                    br.close();
                 }
             } catch (IOException ex) {
-                Logger.getLogger(Conjunto.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Artista.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
+
     }
 }
