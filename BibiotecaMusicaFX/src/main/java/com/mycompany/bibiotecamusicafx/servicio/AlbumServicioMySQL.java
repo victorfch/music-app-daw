@@ -76,7 +76,7 @@ public class AlbumServicioMySQL implements AlbumServicio {
             stmt.setString(5, album.getId());
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(ArtistaServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AlbumServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -140,7 +140,7 @@ public class AlbumServicioMySQL implements AlbumServicio {
                         id);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ArtistaServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AlbumServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
         }
         return album;
     }

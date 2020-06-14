@@ -2,7 +2,6 @@ package com.mycompany.bibiotecamusicafx.servicio;
 
 import com.mycompany.bibiotecamusicafx.model.Artista;
 import com.mycompany.bibiotecamusicafx.model.Conexion;
-import com.mycompany.bibiotecamusicafx.servicio.ArtistaServicio;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -195,6 +194,8 @@ public class ArtistaServicioMySQL implements ArtistaServicio {
                 + "artista_id varchar(36) COLLATE utf8_spanish_ci NOT NULL,"
                 + "album_id varchar(36) COLLATE utf8_spanish_ci NOT NULL,"
                 + "letra text COLLATE utf8_spanish_ci NOT NULL,"
+                + "id varchar(36) COLLATE utf8_spanish_ci NOT NULL,"
+                + "PRIMARY KEY (id),"
                 + "KEY artista_id (artista_id),"
                 + "KEY album_id (album_id),"
                 + "CONSTRAINT cancion_ibfk_1 FOREIGN KEY (artista_id) "
@@ -220,7 +221,7 @@ public class ArtistaServicioMySQL implements ArtistaServicio {
                 + " nombre varchar(20) COLLATE utf8_spanish_ci NOT NULL,"
                 + " nacionalidad varchar(20) COLLATE utf8_spanish_ci NOT NULL,"
                 + " fecha_nacimiento date NOT NULL,"
-                + " PRIMARY KEY (`id`)"
+                + " PRIMARY KEY (id)"
                 + ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci";
 
         Statement sentencia;

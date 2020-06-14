@@ -4,6 +4,7 @@ import com.mycompany.bibiotecamusicafx.servicio.AlbumServicio;
 import com.mycompany.bibiotecamusicafx.servicio.AlbumServicioMySQL;
 import com.mycompany.bibiotecamusicafx.servicio.ArtistaServicio;
 import com.mycompany.bibiotecamusicafx.servicio.ArtistaServicioMySQL;
+import com.mycompany.bibiotecamusicafx.servicio.CancionServicioMySQL;
 import com.mycompany.bibiotecamusicafx.utility.VentanasYControladores;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -21,6 +22,7 @@ public class MainApp extends Application {
         ArtistaServicio servicioArtistas = ArtistaServicioMySQL.getServicioMySQL();
         servicioArtistas.crearTablas();
         AlbumServicio servicioAlbumes = AlbumServicioMySQL.getServicioMySQL();
+        CancionServicioMySQL cancionServicio = CancionServicioMySQL.getServicioMySQL();
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
@@ -31,6 +33,7 @@ public class MainApp extends Application {
         stage.setOnCloseRequest((WindowEvent t) -> {
             servicioArtistas.cerrarSesion();
             servicioAlbumes.cerrarSesion();
+            cancionServicio.cerrarSesion();
             Platform.exit();
             System.exit(0);
         });
