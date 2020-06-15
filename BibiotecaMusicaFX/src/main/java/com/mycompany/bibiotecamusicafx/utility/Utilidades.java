@@ -1,7 +1,5 @@
 package com.mycompany.bibiotecamusicafx.utility;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -39,11 +37,6 @@ public class Utilidades {
 
     public static boolean esFechaValida(String fecha) {
         return Pattern.matches(Constantes.EXPRESION_REGULAR, fecha);
-    }
-
-    public static LocalDate conversorStringToLocalDate(String fecha) {
-        DateTimeFormatter formateador = DateTimeFormatter.ofPattern(Constantes.PATRON_FECHA);
-        return LocalDate.parse(fecha, formateador);
     }
     
     public static String pedirCadena(String cadena) {

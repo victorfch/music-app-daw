@@ -82,6 +82,9 @@ public class Conjunto {
         return artistas;
     }
 
+    /**
+     * Metodo para importar artistas desde un fichero txt
+     */
     public void importarArtistasPorFichero() {
         BufferedReader br = null;
         try {

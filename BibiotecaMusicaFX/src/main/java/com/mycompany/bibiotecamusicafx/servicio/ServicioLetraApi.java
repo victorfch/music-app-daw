@@ -12,6 +12,12 @@ public class ServicioLetraApi {
     private ServicioLetraApi() {
     }
     
+    /**
+     * Metodo para conectarse a una api que devuelve la letra de las canciones
+     * @param artista nombre del artista
+     * @param cancion nombre de la cancion
+     * @return String devuelve la letra
+     */
     public static String getLetraCancion(String artista, String cancion) {
         String letra = "";
         URL url;

@@ -1,6 +1,5 @@
 package com.mycompany.bibiotecamusicafx.servicio;
 
-import com.mycompany.bibiotecamusicafx.model.Album;
 import com.mycompany.bibiotecamusicafx.model.Cancion;
 import com.mycompany.bibiotecamusicafx.model.Conexion;
 import java.sql.Connection;
@@ -41,7 +40,7 @@ public class CancionServicioMySQL {
             stmt.setString(5, cancion.getId());
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(AlbumServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CancionServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -52,7 +51,7 @@ public class CancionServicioMySQL {
             stmt.setString(1, id);
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(AlbumServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CancionServicioMySQL.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -86,6 +86,9 @@ public class CancionController implements Initializable {
         comboArtistas.setVisibleRowCount(5);
     }
 
+    /**
+     * Metodo para cargar los artistas de la BBDD y ponerlos en el combobox
+     */
     private void cargarArtistas() {
         comboArtistas.setConverter(new StringConverter<Artista>() {
             private Map<String, Artista> mapaArtista = new HashMap<>();
@@ -176,8 +179,6 @@ public class CancionController implements Initializable {
                 MenuItem menuItem2 = new MenuItem("Ver");
                 MenuButton menuButton = new MenuButton("Acciones", null, menuItem1, menuItem2);
                 menuItem1.setOnAction((ActionEvent event) -> {
-                    System.out.println("eliminar");
-                    System.out.println("id: " + cancion.getId());
                     servicioCanciones.eliminar(cancion.getId());
                     actualizarPanel(servicioCanciones.obtenerTodos());
                 });

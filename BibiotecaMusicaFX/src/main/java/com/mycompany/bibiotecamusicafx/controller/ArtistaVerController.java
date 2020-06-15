@@ -48,6 +48,10 @@ public class ArtistaVerController implements Initializable {
         VentanasYControladores.getVentana("artista-ver").close();
     }
 
+    /**
+     * Metodo para cargar en la vista los datos pasados
+     * @param artista artista
+     */
     public void iniciarDatos(Artista artista) {
         nombre.setText(artista.getNombre());
         nacionalidad.setText(artista.getNacionalidad());

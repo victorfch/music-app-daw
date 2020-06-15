@@ -16,7 +16,7 @@ public class Constantes {
     public static final String COLOR_ROJO = "#f53434";
     public static final String ETIQUETA_NOMBRE = "Nombre";
     public static final String ETIQUETA_NACIONALIDAD = "Nacionalidad";
-    public static final String ETIQUETA_FECHA_NACIMIENTO = "Fecha nacimiento(yyy-mm-dd): ";
+    public static final String ETIQUETA_FECHA_NACIMIENTO = "Fecha nacimiento(yyyy-mm-dd): ";
     public static final String ETIQUETA_EDAD = "Años";
     public static final String DOS_PUNTOS_ESPACIO = ": ";
     public static final String PATRON_FECHA = "dd/MM/yyyy";

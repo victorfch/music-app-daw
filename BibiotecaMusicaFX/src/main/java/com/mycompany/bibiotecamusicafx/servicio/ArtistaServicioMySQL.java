@@ -196,10 +196,10 @@ public class ArtistaServicioMySQL implements ArtistaServicio {
                 + "letra text COLLATE utf8_spanish_ci NOT NULL,"
                 + "id varchar(36) COLLATE utf8_spanish_ci NOT NULL,"
                 + "PRIMARY KEY (id),"
-                + "KEY artista_id (artista_id),"
+                + "KEY cancion_ibfk_1 (artista_id),"
                 + "KEY album_id (album_id),"
                 + "CONSTRAINT cancion_ibfk_1 FOREIGN KEY (artista_id) "
-                + "REFERENCES artista (id) ON DELETE CASCADE ON UPDATE CASCADE,"
+                + "REFERENCES album (artista_id) ON DELETE CASCADE ON UPDATE CASCADE,"
                 + "CONSTRAINT cancion_ibfk_2 FOREIGN KEY (album_id) "
                 + "REFERENCES album (id) ON DELETE CASCADE ON UPDATE CASCADE"
                 + ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci";

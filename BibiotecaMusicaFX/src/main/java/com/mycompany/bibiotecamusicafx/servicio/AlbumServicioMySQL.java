@@ -95,7 +95,6 @@ public class AlbumServicioMySQL implements AlbumServicio {
             sql += " genero LIKE ?";
         }
         
-        Album album = null;
         PreparedStatement stmt;
         try {
             stmt = conexion.prepareStatement(sql);

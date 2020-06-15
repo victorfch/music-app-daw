@@ -67,6 +67,10 @@ public class Artista implements Comparable<Artista> {
         this.nacionalidad = nacionalidad;
     }
 
+    /**
+     * Metodo para obtener la edad segun fecha de nacimiento
+     * @return int edad
+     */
     public int getEdad() {
         LocalDate fechaNacimientoLocalDate = fechaNacimiento.toLocalDate();
         LocalDate hoy = LocalDate.now();
@@ -128,6 +132,9 @@ public class Artista implements Comparable<Artista> {
         return encontrado;
     }
     
+    /**
+     * Metodo para exportar a un fichero .txt los albumes de un artista
+     */
     public void exportarAlbums() {
         BufferedWriter bw = null;
         try {
