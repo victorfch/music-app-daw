@@ -11,7 +11,6 @@ public interface AlbumServicio {
     public abstract List<Album> buscarConFiltro(Map filtro);
     public abstract Album getAlbum(String id);
     public abstract List<Album> obtenerTodos();
-    public abstract int contarAlbums();
     public abstract void cerrarSesion();
     public abstract List<Album> getAlbumsByArtista(String artistaId);
 }

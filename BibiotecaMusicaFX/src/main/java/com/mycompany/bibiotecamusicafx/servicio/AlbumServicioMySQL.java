@@ -166,11 +166,6 @@ public class AlbumServicioMySQL implements AlbumServicio {
     }
 
     @Override
-    public int contarAlbums() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public void cerrarSesion() {
         try {
             conexion.close();
